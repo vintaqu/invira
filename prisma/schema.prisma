@@ -1,0 +1,662 @@
+// ============================================================
+// INVITELY — Prisma Schema v1.0
+// Platform: Digital Event Invitations SaaS
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  PAID
+  ARCHIVED
+  CANCELLED
+}
+
+enum EventType {
+  WEDDING
+  BIRTHDAY
+  CORPORATE
+  BAPTISM
+  ANNIVERSARY
+  GRADUATION
+  QUINCEANERA
+  OTHER
+}
+
+enum RSVPStatus {
+  PENDING
+  CONFIRMED
+  DECLINED
+  MAYBE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum InvitationStatus {
+  DRAFT
+  SENT
+  OPENED
+  CLICKED
+}
+
+enum ReminderStatus {
+  SCHEDULED
+  SENT
+  FAILED
+}
+
+enum CheckInStatus {
+  PENDING
+  CHECKED_IN
+  NO_SHOW
+}
+
+// ============================================================
+// USER
+// ============================================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  passwordHash  String?
+  role          UserRole  @default(USER)
+  locale        String    @default("es")
+  timezone      String    @default("Europe/Madrid")
+
+  // Stripe
+  stripeCustomerId String? @unique
+
+  // Subscription / usage
+  planId         String?
+  planExpiresAt  DateTime?
+  eventsCreated  Int       @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  events    Event[]
+  payments  Payment[]
+  sessions  Session[]
+  accounts  Account[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+// ============================================================
+// TEMPLATE
+// ============================================================
+
+model Template {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  thumbnail   String?
+  isPremium   Boolean   @default(false)
+  price       Float?
+  eventTypes  EventType[]
+  isActive    Boolean   @default(true)
+
+  // JSON schema defining editable sections
+  schema      Json      // { sections: [...], fonts: [], colorPalettes: [] }
+  defaultData Json      // default values
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  events      Event[]
+
+  @@map("templates")
+}
+
+// ============================================================
+// EVENT
+// ============================================================
+
+model Event {
+  id          String      @id @default(cuid())
+  userId      String
+  templateId  String?
+
+  // Identity
+  slug        String      @unique
+  title       String
+  type        EventType   @default(WEDDING)
+  status      EventStatus @default(DRAFT)
+
+  // Date & Time
+  eventDate   DateTime
+  endDate     DateTime?
+  timezone    String      @default("Europe/Madrid")
+  doors       String?     // e.g. "19:30"
+  ceremony    String?
+  reception   String?
+
+  // Location
+  venueName   String?
+  venueAddress String?
+  venueCity   String?
+  venueCountry String?     @default("ES")
+  latitude    Float?
+  longitude   Float?
+  mapboxPlaceId String?
+
+  // Content
+  coupleNames  String?    // "María & Carlos" or "ACME Corp"
+  description  String?    @db.Text
+  heroImage    String?    // Cloudinary URL
+  heroVideo    String?    // Cloudinary URL
+  musicUrl     String?    // Background music
+  dressCode    String?
+  menuUrl      String?
+  agendaJson   Json?      // [{ time, title, description, icon }]
+  menuJson     Json?      // [{ course, items: string[] }]
+
+  // Config
+  customData   Json?      // Template-driven config JSON
+  isPrivate    Boolean    @default(false)
+  privateToken String?    @unique
+  privatePassword String?
+
+  // Guest settings
+  maxGuests    Int?
+  allowPlusOne Boolean    @default(true)
+
+  // Locale / i18n
+  locale       String     @default("es")
+  languages    String[]   @default(["es"])
+
+  // UTM / Analytics
+  utmSource    String?
+  utmMedium    String?
+  customDomain String?    @unique
+
+  // Paid
+  paidAt       DateTime?
+  publishedAt  DateTime?
+  archivedAt   DateTime?
+
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template     Template?  @relation(fields: [templateId], references: [id])
+
+  guests       Guest[]
+  invitations  Invitation[]
+  rsvps        RSVP[]
+  payments     Payment[]
+  messages     Message[]
+  media        Media[]
+  analytics    Analytics[]
+  songs        Song[]
+  gifts        Gift[]
+  hotels       Hotel[]
+  transport    Transport[]
+  reminders    Reminder[]
+  timelineItems TimelineItem[]
+  instagramPosts InstagramPost[]
+
+  @@map("events")
+}
+
+// ============================================================
+// GUEST
+// ============================================================
+
+model Guest {
+  id           String  @id @default(cuid())
+  eventId      String
+  name         String
+  email        String?
+  phone        String?
+  group        String?   // "Family", "Work", "Friends"
+
+  // Seating
+  tableNumber  Int?
+  tableName    String?
+  seat         Int?
+
+  // Access
+  accessToken  String  @unique @default(cuid())
+  isVIP        Boolean @default(false)
+
+  // Personalization
+  menuChoice   String?
+  transportId  String?
+  notes        String? @db.Text
+
+  // Check-in
+  checkInStatus CheckInStatus @default(PENDING)
+  checkedInAt   DateTime?
+  checkInDevice String?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  event        Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  invitation   Invitation?
+  rsvp         RSVP?
+  analytics    Analytics[]
+
+  @@unique([eventId, email])
+  @@map("guests")
+}
+
+// ============================================================
+// INVITATION
+// ============================================================
+
+model Invitation {
+  id          String           @id @default(cuid())
+  eventId     String
+  guestId     String           @unique
+  status      InvitationStatus @default(DRAFT)
+
+  channel     String?  // "whatsapp" | "email" | "link" | "instagram"
+  sentAt      DateTime?
+  openedAt    DateTime?
+  clickedAt   DateTime?
+  openCount   Int       @default(0)
+
+  // UTM tracking
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+
+  personalizedUrl String?  // /event/[slug]?guest=[token]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  event       Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  guest       Guest     @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  @@map("invitations")
+}
+
+// ============================================================
+// RSVP
+// ============================================================
+
+model RSVP {
+  id              String     @id @default(cuid())
+  eventId         String
+  guestId         String     @unique
+
+  status          RSVPStatus @default(PENDING)
+  companions      Int        @default(0)
+  companionNames  String[]
+
+  // Dietary / restrictions
+  dietaryRestrictions String?
+  allergies           String?
+
+  // Custom fields (JSON from event config)
+  customFields    Json?
+
+  // Transport
+  needsTransport  Boolean @default(false)
+  transportOption String?
+
+  message         String? @db.Text
+  respondedAt     DateTime?
+  ipAddress       String?
+  userAgent       String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  event           Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  guest           Guest    @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  @@map("rsvps")
+}
+
+// ============================================================
+// PAYMENT
+// ============================================================
+
+model Payment {
+  id                String        @id @default(cuid())
+  userId            String
+  eventId           String
+
+  stripeSessionId   String?       @unique
+  stripePaymentIntent String?     @unique
+  stripeInvoiceId   String?
+
+  amount            Float
+  currency          String        @default("EUR")
+  status            PaymentStatus @default(PENDING)
+
+  // What was purchased
+  productType       String        // "event_activation" | "template_premium" | "custom_domain" | "analytics" | "reminders"
+  productId         String?
+
+  metadata          Json?
+
+  paidAt            DateTime?
+  refundedAt        DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  user              User          @relation(fields: [userId], references: [id])
+  event             Event         @relation(fields: [eventId], references: [id])
+
+  @@map("payments")
+}
+
+// ============================================================
+// ANALYTICS
+// ============================================================
+
+model Analytics {
+  id          String   @id @default(cuid())
+  eventId     String
+  guestId     String?
+
+  type        String   // "page_view" | "rsvp_start" | "rsvp_complete" | "map_view" | "music_play"
+  channel     String?  // "whatsapp" | "email" | "direct" | "instagram"
+
+  // UTM
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+
+  ipAddress   String?
+  userAgent   String?
+  country     String?
+  city        String?
+  referrer    String?
+
+  sessionId   String?
+  duration    Int?    // seconds
+
+  metadata    Json?
+  timestamp   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  guest       Guest?   @relation(fields: [guestId], references: [id], onDelete: SetNull)
+
+  @@index([eventId, timestamp])
+  @@index([guestId])
+  @@map("analytics")
+}
+
+// ============================================================
+// MESSAGE (Guestbook)
+// ============================================================
+
+model Message {
+  id          String   @id @default(cuid())
+  eventId     String
+  authorName  String
+  authorEmail String?
+  content     String   @db.Text
+  isApproved  Boolean  @default(false)
+  isPinned    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+// ============================================================
+// MEDIA
+// ============================================================
+
+model Media {
+  id          String   @id @default(cuid())
+  eventId     String
+  url         String
+  publicId    String   // Cloudinary public_id
+  type        String   // "image" | "video"
+  width       Int?
+  height      Int?
+  size        Int?
+  alt         String?
+  caption     String?
+  position    Int      @default(0)
+  isHero      Boolean  @default(false)
+  uploadedBy  String?
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("media")
+}
+
+// ============================================================
+// SONG (Collaborative playlist)
+// ============================================================
+
+model Song {
+  id          String   @id @default(cuid())
+  eventId     String
+  title       String
+  artist      String
+  spotifyId   String?
+  youtubeId   String?
+  coverUrl    String?
+  suggestedBy String?  // Guest name
+  votes       Int      @default(0)
+  isApproved  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("songs")
+}
+
+// ============================================================
+// GIFT REGISTRY
+// ============================================================
+
+model Gift {
+  id          String   @id @default(cuid())
+  eventId     String
+  name        String
+  description String?
+  price       Float?
+  url         String?
+  imageUrl    String?
+  isTaken     Boolean  @default(false)
+  takenBy     String?
+  takenAt     DateTime?
+  position    Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("gifts")
+}
+
+// ============================================================
+// HOTEL
+// ============================================================
+
+model Hotel {
+  id          String   @id @default(cuid())
+  eventId     String
+  name        String
+  address     String?
+  stars       Int?
+  priceRange  String?
+  url         String?
+  phone       String?
+  imageUrl    String?
+  distance    Float?   // km from venue
+  discount    String?  // "10% con código BODA2025"
+  position    Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("hotels")
+}
+
+// ============================================================
+// TRANSPORT
+// ============================================================
+
+model Transport {
+  id           String   @id @default(cuid())
+  eventId      String
+  name         String
+  type         String   // "bus" | "shuttle" | "taxi" | "other"
+  origin       String
+  destination  String?
+  departureTime String?
+  returnTime   String?
+  capacity     Int?
+  notes        String?
+  contactPhone String?
+  position     Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("transport")
+}
+
+// ============================================================
+// REMINDER
+// ============================================================
+
+model Reminder {
+  id          String         @id @default(cuid())
+  eventId     String
+  type        String         // "email" | "whatsapp"
+  triggerDays Int            // days before event
+  subject     String?
+  template    String?
+  status      ReminderStatus @default(SCHEDULED)
+  scheduledAt DateTime
+  sentAt      DateTime?
+  sentCount   Int            @default(0)
+  createdAt   DateTime       @default(now())
+
+  event       Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("reminders")
+}
+
+// ============================================================
+// TIMELINE ITEM (Story / couple history)
+// ============================================================
+
+model TimelineItem {
+  id          String    @id @default(cuid())
+  eventId     String
+  date        DateTime?
+  title       String
+  description String?   @db.Text
+  imageUrl    String?
+  icon        String    @default("✦")
+  position    Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  event       Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("timeline_items")
+}
+
+// ============================================================
+// INSTAGRAM WALL
+// ============================================================
+
+model InstagramPost {
+  id          String   @id @default(cuid())
+  eventId     String
+  hashtag     String?
+  imageUrl    String
+  caption     String?
+  authorName  String?
+  authorHandle String?
+  isApproved  Boolean  @default(false)
+  instagramId String?
+  postedAt    DateTime?
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@map("instagram_posts")
+}
+
+model PricingPlan {
+  id          String   @id @default(cuid())
+  slug        String   @unique // "free" | "esencial" | "premium"
+  name        String
+  price       Float    @default(0)
+  maxEvents   Int      @default(0)  // 0 = no publish, 1 = one, 3 = three, -1 = unlimited
+  maxGuests   Int      @default(300)
+  features    Json     @default("[]")  // string[]
+  notFeatures Json     @default("[]")  // string[] items NOT included
+  discount    Json?    // { pct: number, label: string, until: string | null }
+  badge       String?  // e.g. "Más popular"
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("pricing_plans")
+}

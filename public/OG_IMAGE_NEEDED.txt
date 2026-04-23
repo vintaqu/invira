@@ -1,0 +1,10 @@
+Crea una imagen og-image.jpg de 1200x630px para las previews de redes sociales.
+Colócala en esta carpeta como: public/og-image.jpg
+
+Debe mostrar:
+- Fondo crema/beige (#faf8f4)
+- Logo "Invitely" en tipografía serif
+- Tagline "Invitaciones digitales para momentos únicos"
+- Ejemplo visual de una invitación
+
+Herramientas: Canva, Figma, o generador de imágenes.

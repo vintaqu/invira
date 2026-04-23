@@ -1,0 +1,14 @@
+{
+  "name": "Invira — Invitaciones digitales",
+  "short_name": "Invira",
+  "description": "Crea invitaciones digitales únicas para tu evento",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1c18",
+  "theme_color": "#84C5BC",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
