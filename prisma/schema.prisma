@@ -97,6 +97,7 @@ model User {
   planId         String?
   planExpiresAt  DateTime?
   eventsCreated  Int       @default(0)
+  isBlocked      Boolean   @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
