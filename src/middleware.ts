@@ -16,7 +16,6 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
   // ── Security headers on ALL responses ──────────────────────────
-  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   response.headers.set('X-Content-Type-Options', 'nosniff')
   response.headers.set('X-Frame-Options', 'DENY')
   response.headers.set('X-XSS-Protection', '1; mode=block')
@@ -28,11 +27,13 @@ export async function middleware(request: NextRequest) {
     'Content-Security-Policy',
     [
       `default-src 'self'`,
-      `script-src 'self' 'nonce-${nonce}' 'unsafe-eval'`,   // unsafe-eval needed for Next.js dev
+      `script-src 'self' 'unsafe-inline' 'unsafe-eval'`,
       `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
-      `font-src 'self' https://fonts.gstatic.com`,
-      `img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://lh3.googleusercontent.com`,
-      `connect-src 'self' https://api.groq.com https://generativelanguage.googleapis.com`,
+      `font-src 'self' data: https://fonts.gstatic.com`,
+      `img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://lh3.googleusercontent.com https://*.unsplash.com`,
+      `media-src 'self' blob: https://res.cloudinary.com`,
+      `connect-src 'self' https://api.groq.com https://generativelanguage.googleapis.com https://vitals.vercel-insights.com`,
+      `frame-src https://www.youtube.com https://youtube.com`,
       `frame-ancestors 'none'`,
       `base-uri 'self'`,
       `form-action 'self'`,
