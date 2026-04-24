@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     const { eventId, productType = 'event_activation' } = await req.json()
     const userId = session.user.id
     const product  = PRODUCTS[productType as ProductType]
-    const planSlug = (body as any).planSlug ?? 'esencial'
+    const planSlug = (data as any).planSlug ?? 'esencial'
     const livePrice = await getLivePlanPrice(planSlug, product.amount)
     if (!product) return NextResponse.json({ error: 'Producto inválido' }, { status: 400 })
 
