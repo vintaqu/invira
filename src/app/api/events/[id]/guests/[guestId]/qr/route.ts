@@ -28,7 +28,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
     if (download === '1') {
       // Return raw PNG image for download
-      const buffer = await qrService.generateBuffer(url)
+      const buffer = new Uint8Array(await qrService.generateBuffer(url))
       const filename = `qr-${guest.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.png`
       return new NextResponse(buffer, {
         status: 200,
