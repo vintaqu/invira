@@ -15,7 +15,10 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     const rows = await GuestService.exportExcel(id, session.user.id)
     const buffer = generateExcel(rows, 'Invitados')
 
-    return new NextResponse(buffer, {
+    // Convert Buffer to Uint8Array for NextResponse compatibility
+    const uint8 = new Uint8Array(buffer)
+
+    return new NextResponse(uint8, {
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'Content-Disposition': `attachment; filename="invitados-${id}.xlsx"`,
