@@ -31,12 +31,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'PayPal no configurado' }, { status: 503 })
     }
 
-    const { eventId, productType = 'event_activation' } = await req.json()
+    const body = await req.json()
+    const { eventId, productType = 'event_activation', planSlug = 'esencial' } = body
     const userId = session.user.id
-    const product  = PRODUCTS[productType as ProductType]
-    const planSlug = (data as any).planSlug ?? 'esencial'
-    const livePrice = await getLivePlanPrice(planSlug, product.amount)
+    const product = PRODUCTS[productType as ProductType]
     if (!product) return NextResponse.json({ error: 'Producto inválido' }, { status: 400 })
+
+    const livePrice = await getLivePlanPrice(planSlug, product.amount)
 
     const event = await prisma.event.findFirst({ where: { id: eventId, userId } })
     if (!event) return NextResponse.json({ error: 'Evento no encontrado' }, { status: 404 })
@@ -45,7 +46,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ already: true })
     }
 
-    // Create internal payment record first
     const payment = await prisma.payment.create({
       data: {
         userId,
@@ -68,10 +68,9 @@ export async function POST(req: NextRequest) {
       cancelUrl:  `${appUrl}/dashboard/events/${eventId}?payment=cancelled`,
     })
 
-    // Store PayPal order ID
     await prisma.payment.update({
       where: { id: payment.id },
-      data: { stripeSessionId: `paypal_${orderId}` }, // reuse field for PayPal order ID
+      data: { stripeSessionId: `paypal_${orderId}` },
     })
 
     return NextResponse.json({ url: approveUrl, orderId })
