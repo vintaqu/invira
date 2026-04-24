@@ -10,7 +10,10 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions)
     if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const { eventId, productType = 'event_activation' } = await req.json()
+    const body = await req.json()
+    const { eventId: _eventId, eventIds, productType = 'event_activation', planSlug = 'esencial' } = body
+    const eventId = _eventId ?? (Array.isArray(eventIds) ? eventIds[0] : eventIds)
+    if (!eventId) return NextResponse.json({ error: 'eventId requerido' }, { status: 400 })
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
     const { url } = await PaymentService.createCheckout({

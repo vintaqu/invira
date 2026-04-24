@@ -32,21 +32,24 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { eventId, productType = 'event_activation', planSlug = 'esencial' } = body
+    const { eventId, eventIds, productType = 'event_activation', planSlug = 'esencial' } = body
+    // Accept both eventId (singular) and eventIds (array) — use first one
+    const resolvedEventId = eventId ?? (Array.isArray(eventIds) ? eventIds[0] : eventIds)
     const userId = session.user.id
     const product = PRODUCTS[productType as ProductType]
     if (!product) return NextResponse.json({ error: 'Producto inválido' }, { status: 400 })
+    if (!resolvedEventId) return NextResponse.json({ error: 'eventId requerido' }, { status: 400 })
 
     const livePrice = await getLivePlanPrice(planSlug, product.amount)
 
-    const event = await prisma.event.findFirst({ where: { id: eventId, userId } })
+    const event = await prisma.event.findFirst({ where: { id: resolvedEventId, userId } })
     if (!event) return NextResponse.json({ error: 'Evento no encontrado' }, { status: 404 })
 
     if (event.status === 'PAID') return NextResponse.json({ already: true })
 
     const payment = await prisma.payment.create({
       data: {
-        userId, eventId,
+        userId, eventId: resolvedEventId,
         amount: livePrice,
         currency: product.currency,
         status: 'PENDING',
@@ -62,12 +65,12 @@ export async function POST(req: NextRequest) {
       description: `${product.name} — ${event.title}`,
       paymentId: payment.id,
       successUrl: `${appUrl}/api/payments/paypal/capture?paymentId=${payment.id}&eventId=${eventId}`,
-      cancelUrl:  `${appUrl}/dashboard/events/${eventId}?payment=cancelled`,
+      cancelUrl:  `${appUrl}/dashboard/events/${resolvedEventId}?payment=cancelled`,
     })
 
     await prisma.payment.update({
       where: { id: payment.id },
-      data: { stripeSessionId: `paypal_${orderId}` },
+      data: { stripeSessionId: `paypal_${orderId}` } // reuse field for PayPal order ID,
     })
 
     return NextResponse.json({ url: approveUrl, orderId })
