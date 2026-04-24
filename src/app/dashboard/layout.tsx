@@ -57,7 +57,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <circle cx="72" cy="22" r="10" fill="white" opacity="0.95"/>
               <circle cx="78" cy="15" r="5.5" fill="white"/>
             </svg>
-            <span style={{ fontFamily:ff, fontSize:18, color:'#1a1a1a', fontWeight:500, letterSpacing:-0.4 }}>invira</span>
+            <span style={{ fontFamily:ff, fontSize:18, color:'#1a1a1a', fontWeight:500, letterSpacing:-0.4 }}>evochi</span>
           </Link>
         </div>
 

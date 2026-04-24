@@ -1,5 +1,5 @@
 -- ============================================================
--- Migration 0_init — Schema completo Invira
+-- Migration 0_init — Schema completo Evochi
 -- ============================================================
 
 -- Enums

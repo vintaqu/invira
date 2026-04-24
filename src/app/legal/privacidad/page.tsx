@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidad — Invira',
-  description: 'Cómo recogemos, usamos y protegemos tus datos personales en Invira.',
+  title: 'Política de Privacidad — Evochi',
+  description: 'Cómo recogemos, usamos y protegemos tus datos personales en Evochi.',
 }
 
 export default function PrivacidadPage() {
@@ -14,11 +14,11 @@ export default function PrivacidadPage() {
       <section>
         <h2>1. Responsable del tratamiento</h2>
         <p>
-          El responsable del tratamiento de tus datos personales es <strong>Invira</strong> (en adelante, «nosotros» o «Invira»),
-          con dirección de contacto en <a href="mailto:privacidad@invira.app">privacidad@invira.app</a>.
+          El responsable del tratamiento de tus datos personales es <strong>Evochi</strong> (en adelante, «nosotros» o «Evochi»),
+          con dirección de contacto en <a href="mailto:privacidad@evochi.app">privacidad@evochi.app</a>.
         </p>
         <p>
-          Invira es una plataforma de creación y gestión de invitaciones digitales para eventos. Nos tomamos muy en serio
+          Evochi es una plataforma de creación y gestión de invitaciones digitales para eventos. Nos tomamos muy en serio
           la privacidad de nuestros usuarios y de los invitados que interactúan con las invitaciones creadas en nuestra plataforma.
         </p>
       </section>
@@ -30,7 +30,7 @@ export default function PrivacidadPage() {
           <li><strong>Cuenta de usuario:</strong> nombre completo, dirección de correo electrónico y contraseña cifrada.</li>
           <li><strong>Perfil del evento:</strong> nombre del evento, fecha, lugar, descripción, imágenes y demás contenido que añadas al editor.</li>
           <li><strong>Lista de invitados:</strong> nombres, correos electrónicos y números de teléfono de las personas que tú mismo introduces.</li>
-          <li><strong>Pagos:</strong> procesamos los pagos a través de Stripe y PayPal. Invira no almacena datos de tarjetas bancarias; estos son gestionados directamente por el proveedor de pagos.</li>
+          <li><strong>Pagos:</strong> procesamos los pagos a través de Stripe y PayPal. Evochi no almacena datos de tarjetas bancarias; estos son gestionados directamente por el proveedor de pagos.</li>
         </ul>
 
         <h3>2.2 Datos que recogemos automáticamente</h3>
@@ -67,7 +67,7 @@ export default function PrivacidadPage() {
 
       <section>
         <h2>4. Con quién compartimos tus datos</h2>
-        <p>Invira no vende tus datos personales a terceros. Podemos compartirlos con los siguientes encargados del tratamiento:</p>
+        <p>Evochi no vende tus datos personales a terceros. Podemos compartirlos con los siguientes encargados del tratamiento:</p>
         <ul>
           <li><strong>Stripe y PayPal</strong> — procesamiento de pagos.</li>
           <li><strong>Resend</strong> — envío de correos electrónicos transaccionales.</li>
@@ -116,7 +116,7 @@ export default function PrivacidadPage() {
           <li><strong>Retirada del consentimiento:</strong> en cualquier momento, sin que afecte a la licitud del tratamiento previo.</li>
         </ul>
         <p>
-          Para ejercer cualquiera de estos derechos, escríbenos a <a href="mailto:privacidad@invira.app">privacidad@invira.app</a> indicando
+          Para ejercer cualquiera de estos derechos, escríbenos a <a href="mailto:privacidad@evochi.app">privacidad@evochi.app</a> indicando
           tu nombre, dirección de correo y el derecho que deseas ejercer. Responderemos en el plazo máximo de 30 días.
         </p>
         <p>
@@ -137,9 +137,9 @@ export default function PrivacidadPage() {
       <section>
         <h2>9. Menores de edad</h2>
         <p>
-          Invira no está dirigido a menores de 14 años. Si tenemos conocimiento de que hemos recogido datos de un menor sin el
+          Evochi no está dirigido a menores de 14 años. Si tenemos conocimiento de que hemos recogido datos de un menor sin el
           consentimiento de sus tutores, procederemos a eliminarlos inmediatamente.
-          Si eres padre, madre o tutor y crees que tu hijo ha facilitado datos personales, contáctanos en <a href="mailto:privacidad@invira.app">privacidad@invira.app</a>.
+          Si eres padre, madre o tutor y crees que tu hijo ha facilitado datos personales, contáctanos en <a href="mailto:privacidad@evochi.app">privacidad@evochi.app</a>.
         </p>
       </section>
 
@@ -155,7 +155,7 @@ export default function PrivacidadPage() {
         <h2>11. Contacto</h2>
         <p>
           Para cualquier consulta sobre esta política o sobre el tratamiento de tus datos:<br />
-          <strong>Invira</strong> · <a href="mailto:privacidad@invira.app">privacidad@invira.app</a>
+          <strong>Evochi</strong> · <a href="mailto:privacidad@evochi.app">privacidad@evochi.app</a>
         </p>
       </section>
     </article>

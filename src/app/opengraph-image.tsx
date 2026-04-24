@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Invira — Invitaciones digitales para bodas y eventos'
+export const alt = 'Evochi — Invitaciones digitales para bodas y eventos'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -33,7 +33,7 @@ export default function OGImage() {
             <circle cx="78" cy="15" r="5.5" fill="white"/>
           </svg>
           <span style={{ fontSize: 52, color: '#ffffff', fontWeight: 400, letterSpacing: -1, fontFamily: 'serif' }}>
-            invira
+            evochi
           </span>
         </div>
 
@@ -59,7 +59,7 @@ export default function OGImage() {
 
         {/* Bottom URL */}
         <div style={{ position: 'absolute', bottom: 32, fontSize: 14, color: 'rgba(255,255,255,0.25)', letterSpacing: 2, fontFamily: 'sans-serif' }}>
-          invira.app
+          evochi.app
         </div>
       </div>
     ),

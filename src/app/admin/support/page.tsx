@@ -3,10 +3,10 @@ import { useState } from 'react'
 
 // Support page - email-based for now, can integrate Intercom/Crisp later
 const TEMPLATES = [
-  { label: 'Bienvenida', subject: '¡Bienvenido/a a Invira!', body: 'Hola,\n\nGracias por registrarte en Invira. Estamos aquí para ayudarte a crear la invitación perfecta para tu evento.\n\nSi tienes alguna pregunta, no dudes en escribirnos.\n\nUn saludo,\nEl equipo de Invira' },
-  { label: 'Reembolso aprobado', subject: 'Reembolso procesado — Invira', body: 'Hola,\n\nHemos procesado tu reembolso. El importe aparecerá en tu cuenta en 5-10 días hábiles.\n\nLamentamos que tu experiencia no haya sido la esperada. Si hay algo más en lo que podamos ayudarte, escríbenos.\n\nUn saludo,\nEl equipo de Invira' },
-  { label: 'Problema técnico', subject: 'Actualización sobre tu consulta — Invira', body: 'Hola,\n\nHemos investigado el problema que nos reportaste y lo hemos solucionado. Ya puedes continuar usando la plataforma con normalidad.\n\nDisculpa las molestias causadas.\n\nUn saludo,\nEl equipo de Invira' },
-  { label: 'Evento pro-bono', subject: 'Activación especial de tu evento — Invira', body: 'Hola,\n\nHemos activado tu evento de forma gratuita como parte de nuestro programa de apoyo. Tu invitación ya está publicada y lista para compartir.\n\n¡Mucha suerte con tu celebración!\n\nUn saludo,\nEl equipo de Invira' },
+  { label: 'Bienvenida', subject: '¡Bienvenido/a a Evochi!', body: 'Hola,\n\nGracias por registrarte en Evochi. Estamos aquí para ayudarte a crear la invitación perfecta para tu evento.\n\nSi tienes alguna pregunta, no dudes en escribirnos.\n\nUn saludo,\nEl equipo de Evochi' },
+  { label: 'Reembolso aprobado', subject: 'Reembolso procesado — Evochi', body: 'Hola,\n\nHemos procesado tu reembolso. El importe aparecerá en tu cuenta en 5-10 días hábiles.\n\nLamentamos que tu experiencia no haya sido la esperada. Si hay algo más en lo que podamos ayudarte, escríbenos.\n\nUn saludo,\nEl equipo de Evochi' },
+  { label: 'Problema técnico', subject: 'Actualización sobre tu consulta — Evochi', body: 'Hola,\n\nHemos investigado el problema que nos reportaste y lo hemos solucionado. Ya puedes continuar usando la plataforma con normalidad.\n\nDisculpa las molestias causadas.\n\nUn saludo,\nEl equipo de Evochi' },
+  { label: 'Evento pro-bono', subject: 'Activación especial de tu evento — Evochi', body: 'Hola,\n\nHemos activado tu evento de forma gratuita como parte de nuestro programa de apoyo. Tu invitación ya está publicada y lista para compartir.\n\n¡Mucha suerte con tu celebración!\n\nUn saludo,\nEl equipo de Evochi' },
 ]
 
 export default function AdminSupportPage() {
@@ -94,7 +94,7 @@ export default function AdminSupportPage() {
                 style={{ background: sent ? '#10b981' : '#0d0d0f', color: '#fff', border: 'none', padding: '11px 28px', borderRadius: 10, fontSize: 13, cursor: 'pointer', fontFamily: 'Inter,sans-serif', fontWeight: 500, opacity: (!to || !subject || !body) ? 0.4 : 1 }}>
                 {sent ? '✓ Enviado' : sending ? 'Enviando…' : 'Enviar email'}
               </button>
-              <p style={{ fontSize: 12, color: '#aaa', margin: 0 }}>Se enviará desde soporte@invira.app</p>
+              <p style={{ fontSize: 12, color: '#aaa', margin: 0 }}>Se enviará desde soporte@evochi.app</p>
             </div>
           </div>
         </div>

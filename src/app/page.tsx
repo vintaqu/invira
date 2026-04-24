@@ -135,7 +135,7 @@ function AuthModal({ mode, onClose, callbackUrl }: { mode: 'login' | 'register';
               <circle cx="27" cy="14" r="5.5" fill="rgba(132,197,188,0.9)"/>
               <circle cx="27" cy="14" r="2.5" fill="white"/>
             </svg>
-            <span style={{ fontFamily:"system-ui, sans-serif", fontSize:22, color:'#fff', fontWeight:600, letterSpacing:-0.3 }}>invira</span>
+            <span style={{ fontFamily:"system-ui, sans-serif", fontSize:22, color:'#fff', fontWeight:600, letterSpacing:-0.3 }}>evochi</span>
           </div>
           <p style={{ fontSize:14, color:'rgba(255,255,255,0.4)', margin:0, fontWeight:300 }}>{tab==='register' ? 'Crea tu cuenta gratis' : 'Bienvenido de nuevo'}</p>
           <button onClick={onClose} style={{ position:'absolute', top:14, right:18, background:'none', border:'none', fontSize:24, cursor:'pointer', color:'rgba(255,255,255,0.3)', lineHeight:1 }}>×</button>
@@ -225,10 +225,10 @@ function HomePageInner() {
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
       "@context":"https://schema.org",
       "@type":"WebSite",
-      "name":"Invira",
-      "url":"https://invira.app",
+      "name":"Evochi",
+      "url":"https://evochi.app",
       "description":"Invitaciones digitales para bodas, cumpleaños y eventos",
-      "potentialAction":{"@type":"SearchAction","target":"https://invira.app/event/{slug}","query-input":"required name=slug"}
+      "potentialAction":{"@type":"SearchAction","target":"https://evochi.app/event/{slug}","query-input":"required name=slug"}
     }) }} />
     <div style={{ minHeight:'100vh', overflowX:'hidden', width:'100%', background:'#fff', ...s }}>
       {/* NAV */}
@@ -241,7 +241,7 @@ function HomePageInner() {
             <circle cx="27" cy="14" r="2.5" fill="white"/>
             <circle cx="20.5" cy="7.5" r="2.5" fill="#84C5BC" opacity="0.6"/>
           </svg>
-          <span style={{ fontFamily:"'DM Sans', system-ui, sans-serif", fontSize:22, color:'#333333', letterSpacing:-0.3, fontWeight:600 }}>invira</span>
+          <span style={{ fontFamily:"'DM Sans', system-ui, sans-serif", fontSize:22, color:'#333333', letterSpacing:-0.3, fontWeight:600 }}>evochi</span>
         </a>
 
         {/* NAV LINKS with anchors */}
@@ -291,7 +291,7 @@ function HomePageInner() {
       {fromInvite && (
         <div style={{ background:'linear-gradient(90deg,#eaf4f3,#d4eeeb)', borderBottom:'1px solid #b8e0dc', padding:'10px 48px', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
           <p style={{ fontSize:13, color:'#2d6b65', margin:0 }}>
-            ✦ Acabas de ver una invitación hecha con Invira. {session ? '¡Bienvenido de nuevo!' : '¡Crea la tuya en minutos, gratis!'}
+            ✦ Acabas de ver una invitación hecha con Evochi. {session ? '¡Bienvenido de nuevo!' : '¡Crea la tuya en minutos, gratis!'}
           </p>
           <button onClick={()=> session ? router.push('/dashboard') : setModal('register')}
             style={{ fontSize:13, background:'#84C5BC', color:'#fff', border:'none', padding:'7px 18px', borderRadius:8, cursor:'pointer', fontFamily:'Inter,sans-serif', fontWeight:500, flexShrink:0 }}>
@@ -585,7 +585,7 @@ function HomePageInner() {
             Tu celebración merece<br />una invitación <em style={{ fontStyle:'italic', color:'#84C5BC' }}>perfecta</em>
           </h2>
           <p style={{ fontSize:15, color:'rgba(255,255,255,0.4)', marginBottom:40, lineHeight:1.7 }}>
-            Únete a más de 2.400 personas que ya confiaron en Invira.
+            Únete a más de 2.400 personas que ya confiaron en Evochi.
           </p>
           <button onClick={()=> session ? router.push('/dashboard') : setModal('register')} style={{ fontSize:15, color:dark, background:'#84C5BC', border:'none', padding:'17px 44px', borderRadius:12, cursor:'pointer', fontWeight:500, fontFamily:'Inter,sans-serif' }}>
             Crear mi invitación gratis
@@ -624,7 +624,7 @@ function HomePageInner() {
       <footer style={{ background:'#0f0c0a', padding:'56px clamp(24px,5vw,80px)' }}>
         <div className="hp-footer-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))', gap:32, maxWidth:1100, marginBottom:40 }}>
           <div>
-            <p style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', fontSize:24, color:'#fff', margin:'0 0 12px' }}>Invira</p>
+            <p style={{ fontFamily:'Playfair Display,serif', fontStyle:'italic', fontSize:24, color:'#fff', margin:'0 0 12px' }}>Evochi</p>
             <p style={{ fontSize:13, color:'rgba(255,255,255,0.3)', lineHeight:1.7, maxWidth:280 }}>
               La plataforma de invitaciones digitales más completa para bodas, cumpleaños y todo tipo de celebraciones.
             </p>
@@ -662,7 +662,7 @@ function HomePageInner() {
           ))}
         </div>
         <div style={{ borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:24, display:'flex', justifyContent:'space-between', maxWidth:1100 }}>
-          <p style={{ fontSize:12, color:'rgba(255,255,255,0.18)' }}>© 2025 Invira. Todos los derechos reservados.</p>
+          <p style={{ fontSize:12, color:'rgba(255,255,255,0.18)' }}>© 2025 Evochi. Todos los derechos reservados.</p>
           <p style={{ fontSize:12, color:'rgba(255,255,255,0.18)' }}>Hecho con cariño en España</p>
         </div>
       </footer>

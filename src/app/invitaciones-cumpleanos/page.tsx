@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/landing/LandingPage'
 
 export const metadata: Metadata = {
-  title: 'Invitaciones de Cumpleaños Online y Digitales — Para Todas las Edades | Invira',
+  title: 'Invitaciones de Cumpleaños Online y Digitales — Para Todas las Edades | Evochi',
   description: 'Crea invitaciones de cumpleaños digitales con RSVP online, diseño festivo y cuenta regresiva. Para niños, adultos, 18, 30, 40, 50 o 60 años. Gratuito para empezar.',
   keywords: ['invitaciones cumpleaños online','invitaciones digitales cumpleaños','invitar cumpleaños online','invitaciones 50 cumpleaños','invitaciones 60 cumpleaños','invitaciones cumpleaños niños','invitaciones cumpleaños adultos','invitaciones fiesta cumpleaños','invitaciones cumpleaños mexico'],
-  alternates: { canonical: 'https://invira.app/invitaciones-cumpleanos' },
-  openGraph: { title: 'Invitaciones de Cumpleaños Online | Invira', description: 'Invitaciones de cumpleaños con RSVP, diseño festivo y QR. Para todas las edades. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Invira' },
+  alternates: { canonical: 'https://evochi.app/invitaciones-cumpleanos' },
+  openGraph: { title: 'Invitaciones de Cumpleaños Online | Evochi', description: 'Invitaciones de cumpleaños con RSVP, diseño festivo y QR. Para todas las edades. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Evochi' },
 }
 
 const FEATURES = [
@@ -38,7 +38,7 @@ const TESTIMONIALS = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', url: 'https://invira.app/invitaciones-cumpleanos', name: 'Invitaciones de Cumpleaños Online | Invira', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://invira.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de cumpleaños', item: 'https://invira.app/invitaciones-cumpleanos' }] } },
+    { '@type': 'WebPage', url: 'https://evochi.app/invitaciones-cumpleanos', name: 'Invitaciones de Cumpleaños Online | Evochi', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://evochi.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de cumpleaños', item: 'https://evochi.app/invitaciones-cumpleanos' }] } },
     { '@type': 'FAQPage', mainEntity: FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 }

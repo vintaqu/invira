@@ -52,7 +52,7 @@ export default function ConfirmedClient({ slug }: { slug: string }) {
 
         {/* Powered by */}
         <p style={{ marginTop:48, fontSize:11, color:'#ccc', letterSpacing:1.5, textTransform:'uppercase' }}>
-          Powered by Invira
+          Powered by Evochi
         </p>
       </div>
 

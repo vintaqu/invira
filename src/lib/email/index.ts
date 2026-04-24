@@ -8,7 +8,7 @@ const resend = process.env.RESEND_API_KEY && Resend
   ? new Resend(process.env.RESEND_API_KEY)
   : null
 
-const FROM = process.env.EMAIL_FROM ?? 'Invira <hola@invira.app>'
+const FROM = process.env.EMAIL_FROM ?? 'Evochi <hola@evochi.app>'
 
 async function sendEmail(params: { from: string; to: string; subject: string; html: string }) {
   if (!resend) {
@@ -44,7 +44,7 @@ export const emailService = {
       subject: `✅ Asistencia confirmada — ${p.eventTitle}`,
       html: `<div style="font-family:Georgia,serif;max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08)">
         <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);padding:48px 40px;text-align:center">
-          <p style="color:#84C5BC;font-size:13px;letter-spacing:3px;text-transform:uppercase;margin:0 0 16px">Invira</p>
+          <p style="color:#84C5BC;font-size:13px;letter-spacing:3px;text-transform:uppercase;margin:0 0 16px">Evochi</p>
           <h1 style="color:#fff;font-size:28px;font-weight:400;margin:0">Asistencia Confirmada ✓</h1>
         </div>
         <div style="padding:40px">
@@ -94,7 +94,7 @@ export const emailService = {
           <p style="color:#888;font-size:14px;margin:0 0 24px">${new Date(p.eventDate).toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p>
           <p style="color:#555;font-size:15px;line-height:1.8">Hola <strong>${p.guestName}</strong>, tienes una invitación especial esperándote.</p>
           <a href="${p.personalizedUrl}" style="display:block;text-align:center;background:#1a1a2e;color:#fff;padding:16px 28px;border-radius:8px;text-decoration:none;font-size:14px;margin-top:28px">Abrir mi invitación →</a>
-          <p style="color:#aaa;font-size:11px;text-align:center;margin-top:24px">Powered by <a href="https://invira.app" style="color:#84C5BC">Invira</a></p>
+          <p style="color:#aaa;font-size:11px;text-align:center;margin-top:24px">Powered by <a href="https://evochi.app" style="color:#84C5BC">Evochi</a></p>
         </div>
       </div>`,
     })
@@ -105,16 +105,16 @@ export const emailService = {
     return sendEmail({
       from: FROM,
       to: p.to,
-      subject: '¡Bienvenido/a a Invira! 🎉',
+      subject: '¡Bienvenido/a a Evochi! 🎉',
       html: `<div style="font-family:Georgia,serif;max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08)">
         <div style="background:linear-gradient(135deg,#2d1a10,#1a0e08);padding:48px 40px;text-align:center">
-          <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:28px;color:#fff;margin:0 0 8px">Invira</p>
+          <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:28px;color:#fff;margin:0 0 8px">Evochi</p>
           <p style="color:rgba(132,197,188,0.8);font-size:14px;margin:0">Invitaciones digitales para momentos únicos</p>
         </div>
         <div style="padding:40px">
           <p style="color:#333;font-size:16px;margin-bottom:12px">Hola <strong>${p.name}</strong>,</p>
           <p style="color:#555;font-size:15px;line-height:1.8;margin-bottom:24px">
-            Bienvenido/a a Invira. Ya puedes crear tu primera invitación digital en minutos.
+            Bienvenido/a a Evochi. Ya puedes crear tu primera invitación digital en minutos.
           </p>
           <div style="background:#faf8f4;border-radius:12px;padding:20px;margin-bottom:24px">
             <p style="font-size:14px;color:#333;margin:0 0 8px;font-weight:500">¿Por dónde empezar?</p>
@@ -129,7 +129,7 @@ export const emailService = {
           </a>
         </div>
         <div style="padding:20px 40px;border-top:1px solid #f0ece6;text-align:center">
-          <p style="color:#aaa;font-size:12px;margin:0">Powered by <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="color:#84C5BC;text-decoration:none">Invira</a></p>
+          <p style="color:#aaa;font-size:12px;margin:0">Powered by <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="color:#84C5BC;text-decoration:none">Evochi</a></p>
         </div>
       </div>`,
     })

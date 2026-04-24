@@ -26,15 +26,15 @@ export const viewport = {
   maximumScale: 5,
 }
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://invira.app'
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://evochi.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
 
   title: {
     // Keyword-rich, under 60 chars, brand at end
-    default: 'Invitaciones Digitales Online para Bodas y Eventos | Invira',
-    template: '%s | Invira',
+    default: 'Invitaciones Digitales Online para Bodas y Eventos | Evochi',
+    template: '%s | Evochi',
   },
 
   description:
@@ -68,9 +68,9 @@ export const metadata: Metadata = {
     'invitaciones digitales venezuela',
   ],
 
-  authors: [{ name: 'Invira', url: APP_URL }],
-  creator: 'Invira',
-  publisher: 'Invira',
+  authors: [{ name: 'Evochi', url: APP_URL }],
+  creator: 'Evochi',
+  publisher: 'Evochi',
   category: 'technology',
 
   openGraph: {
@@ -78,16 +78,16 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     alternateLocale: ['es_MX', 'es_AR', 'es_CO', 'es_CL', 'es_PE', 'es_VE'],
     url: APP_URL,
-    siteName: 'Invira',
-    title: 'Invitaciones Digitales Online para Bodas y Eventos | Invira',
+    siteName: 'Evochi',
+    title: 'Invitaciones Digitales Online para Bodas y Eventos | Evochi',
     description: 'Crea invitaciones digitales para bodas, cumpleaños y todo tipo de eventos. RSVP online, diseño premium y QR check-in. Desde €29.',
   },
 
   twitter: {
     card: 'summary_large_image',
-    site: '@invira_app',
-    creator: '@invira_app',
-    title: 'Invitaciones Digitales para Bodas y Eventos | Invira',
+    site: '@evochi_app',
+    creator: '@evochi_app',
+    title: 'Invitaciones Digitales para Bodas y Eventos | Evochi',
     description: 'RSVP online, diseño premium, QR check-in. Desde €29, pago único.',
   },
 

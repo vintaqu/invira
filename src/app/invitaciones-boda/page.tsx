@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/landing/LandingPage'
 
 export const metadata: Metadata = {
-  title: 'Invitaciones de Boda Online y Digitales — Diseño Premium | Invira',
+  title: 'Invitaciones de Boda Online y Digitales — Diseño Premium | Evochi',
   description: 'Crea invitaciones de boda digitales con RSVP online, cuenta regresiva, mapa, lista de canciones y QR check-in. Diseño personalizado. Gratuito para empezar.',
   keywords: ['invitaciones de boda online','invitaciones boda digital','invitaciones boda personalizadas','tarjetas de boda digitales','invitaciones boda españa','invitaciones boda RSVP','crear invitaciones boda online','invitaciones boda mexico'],
-  alternates: { canonical: 'https://invira.app/invitaciones-boda' },
-  openGraph: { title: 'Invitaciones de Boda Online — Diseño Premium | Invira', description: 'RSVP online, cuenta regresiva, mapa, QR check-in y diseño personalizado. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Invira' },
+  alternates: { canonical: 'https://evochi.app/invitaciones-boda' },
+  openGraph: { title: 'Invitaciones de Boda Online — Diseño Premium | Evochi', description: 'RSVP online, cuenta regresiva, mapa, QR check-in y diseño personalizado. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Evochi' },
 }
 
 const FEATURES = [
@@ -39,8 +39,8 @@ const TESTIMONIALS = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', url: 'https://invira.app/invitaciones-boda', name: 'Invitaciones de Boda Online | Invira', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://invira.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de boda', item: 'https://invira.app/invitaciones-boda' }] } },
-    { '@type': 'Product', name: 'Invitación Digital de Boda', description: 'Invitación de boda con RSVP, diseño personalizado, cuenta regresiva y QR.', brand: { '@type': 'Brand', name: 'Invira' }, offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: 'https://invira.app/invitaciones-boda', seller: { '@type': 'Organization', name: 'Invira' } }, aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '183', bestRating: '5' } },
+    { '@type': 'WebPage', url: 'https://evochi.app/invitaciones-boda', name: 'Invitaciones de Boda Online | Evochi', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://evochi.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de boda', item: 'https://evochi.app/invitaciones-boda' }] } },
+    { '@type': 'Product', name: 'Invitación Digital de Boda', description: 'Invitación de boda con RSVP, diseño personalizado, cuenta regresiva y QR.', brand: { '@type': 'Brand', name: 'Evochi' }, offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: 'https://evochi.app/invitaciones-boda', seller: { '@type': 'Organization', name: 'Evochi' } }, aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '183', bestRating: '5' } },
     { '@type': 'FAQPage', mainEntity: FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 }

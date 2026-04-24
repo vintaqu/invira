@@ -1,4 +1,4 @@
-# Invira — Deploy a Producción
+# Evochi — Deploy a Producción
 
 ## 1. Base de datos (Neon — recomendado)
 
@@ -53,14 +53,14 @@ Ve a tu proyecto → Settings → Environment Variables y añade:
 3. Crea API key → `RESEND_API_KEY`
 4. Actualiza el FROM en `src/lib/email/index.ts`:
    ```
-   const FROM = 'Invira <hola@tudominio.com>'
+   const FROM = 'Evochi <hola@tudominio.com>'
    ```
 
 ## 5. Cloudinary (imágenes)
 
 1. Crea cuenta en https://cloudinary.com
 2. Copia Cloud name, API Key, API Secret
-3. En Cloudinary → Settings → Upload → Add preset con nombre `invira`
+3. En Cloudinary → Settings → Upload → Add preset con nombre `evochi`
 
 ## 6. Deploy en Vercel
 

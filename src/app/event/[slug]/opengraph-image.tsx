@@ -36,7 +36,7 @@ export default async function EventOGImage({ params }: { params: Promise<{ slug:
           </div>
           <div style={{ width: 60, height: 1, background: 'rgba(255,255,255,0.4)', margin: '32px auto', display: 'flex' }} />
           <div style={{ fontSize: 18, color: 'rgba(255,255,255,0.6)', fontFamily: 'sans-serif', letterSpacing: 1 }}>
-            invira.app
+            evochi.app
           </div>
         </div>
       </div>

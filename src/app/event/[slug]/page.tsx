@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   const typeLabel = TYPE_LABELS[event.type] ?? 'Evento'
   const desc = event.description ?? TYPE_DESC[event.type] ?? `Estás invitado/a a ${event.title}. Confirma tu asistencia online.`
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://invira.app'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://evochi.app'
 
   return {
     title: `${event.title} — Invitación digital`,
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${event.title} — ${typeLabel}`,
       description: desc,
       images: event.heroImage ? [{ url: event.heroImage, width: 1200, height: 630, alt: event.title }] : [],
-      siteName: 'Invira',
+      siteName: 'Evochi',
       locale: 'es_ES',
     },
     twitter: {
@@ -89,7 +89,7 @@ export default async function EventPage({ params, searchParams }: Props) {
     "name": event.title,
     "description": event.description ?? `Estás invitado/a a ${event.title}`,
     "startDate": event.eventDate.toISOString(),
-    "url": `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://invira.app'}/event/${event.slug}`,
+    "url": `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://evochi.app'}/event/${event.slug}`,
     ...(event.venueName && { "location": { "@type": "Place", "name": event.venueName, "address": event.venueCity ?? undefined } }),
     ...(event.heroImage && { "image": event.heroImage }),
     "organizer": { "@type": "Person", "name": event.coupleNames ?? event.title },

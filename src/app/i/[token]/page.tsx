@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${guest.name}, tienes una invitación 💌`
   const description = `${name}${date ? ` · ${date}` : ''}${venue ? ` · ${venue}` : ''}`
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://invira.app'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://evochi.app'
 
   return {
     title,
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'website',
       title,
       description,
-      siteName: 'Invira',
+      siteName: 'Evochi',
       images: ev.heroImage
         ? [{ url: ev.heroImage, width: 1200, height: 630, alt: name }]
         : [{ url: `${appUrl}/og-image.jpg`, width: 1200, height: 630 }],

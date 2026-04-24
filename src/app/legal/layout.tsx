@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Legal — Invira',
+  title: 'Legal — Evochi',
 }
 
 const LEGAL_LINKS = [
@@ -24,7 +24,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
             <circle cx="27" cy="14" r="2.5" fill="white"/>
             <circle cx="20.5" cy="7.5" r="2.5" fill="#84C5BC" opacity="0.6"/>
           </svg>
-          <span style={{ fontFamily:"system-ui, sans-serif", fontSize:20, color:'#333333', fontWeight:600, letterSpacing:-0.3 }}>invira</span>
+          <span style={{ fontFamily:"system-ui, sans-serif", fontSize:20, color:'#333333', fontWeight:600, letterSpacing:-0.3 }}>evochi</span>
         </Link>
         <nav style={{ display: 'flex', gap: 24 }}>
           {LEGAL_LINKS.map(l => (
@@ -129,7 +129,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
 
       {/* Footer */}
       <footer style={{ borderTop: '1px solid #e8e2db', padding: '28px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, background: '#fff' }}>
-        <p style={{ fontSize: 13, color: '#aaa', margin: 0 }}>© {new Date().getFullYear()} Invira. Todos los derechos reservados.</p>
+        <p style={{ fontSize: 13, color: '#aaa', margin: 0 }}>© {new Date().getFullYear()} Evochi. Todos los derechos reservados.</p>
         <nav style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
           {LEGAL_LINKS.map(l => (
             <Link key={l.href} href={l.href} style={{ fontSize: 12, color: '#aaa', textDecoration: 'none' }}>

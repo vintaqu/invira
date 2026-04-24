@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Cumplimiento RGPD — Invira',
-  description: 'Información sobre cómo Invira cumple con el Reglamento General de Protección de Datos.',
+  title: 'Cumplimiento RGPD — Evochi',
+  description: 'Información sobre cómo Evochi cumple con el Reglamento General de Protección de Datos.',
 }
 
 export default function RgpdPage() {
@@ -12,7 +12,7 @@ export default function RgpdPage() {
       <p className="meta">Última actualización: 20 de abril de 2025</p>
 
       <p>
-        Este documento resume cómo Invira cumple con el <strong>Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo</strong>
+        Este documento resume cómo Evochi cumple con el <strong>Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo</strong>
         (Reglamento General de Protección de Datos, RGPD) y su transposición en España a través de la
         <strong>Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD)</strong>.
       </p>
@@ -52,17 +52,17 @@ export default function RgpdPage() {
 
       <section>
         <h2>2. Roles en el tratamiento de datos</h2>
-        <h3>Invira como responsable del tratamiento</h3>
+        <h3>Evochi como responsable del tratamiento</h3>
         <p>
-          Invira actúa como <strong>responsable del tratamiento</strong> de los datos de sus usuarios registrados
+          Evochi actúa como <strong>responsable del tratamiento</strong> de los datos de sus usuarios registrados
           (Organizadores): nombre, correo electrónico, datos de facturación y datos de uso de la Plataforma.
         </p>
 
-        <h3>Invira como encargado del tratamiento</h3>
+        <h3>Evochi como encargado del tratamiento</h3>
         <p>
           Cuando el Organizador introduce datos de sus invitados (nombre, email, teléfono, preferencias alimentarias),
-          Invira actúa como <strong>encargado del tratamiento</strong> por cuenta del Organizador, quien es el responsable
-          de haber obtenido la base jurídica apropiada para facilitar esos datos a Invira.
+          Evochi actúa como <strong>encargado del tratamiento</strong> por cuenta del Organizador, quien es el responsable
+          de haber obtenido la base jurídica apropiada para facilitar esos datos a Evochi.
         </p>
         <p>
           A tal efecto, nuestros <a href="/legal/terminos">Términos y Condiciones</a> incluyen las cláusulas de encargo
@@ -168,7 +168,7 @@ export default function RgpdPage() {
       <section>
         <h2>7. Privacidad desde el diseño y por defecto</h2>
         <p>
-          Invira incorpora principios de <em>privacy by design</em> y <em>privacy by default</em> en el desarrollo
+          Evochi incorpora principios de <em>privacy by design</em> y <em>privacy by default</em> en el desarrollo
           de sus funcionalidades:
         </p>
         <ul>
@@ -205,13 +205,13 @@ export default function RgpdPage() {
       <section>
         <h2>10. Delegado de Protección de Datos (DPD)</h2>
         <p>
-          Actualmente, el tamaño y naturaleza de las actividades de tratamiento de Invira no requieren la designación
+          Actualmente, el tamaño y naturaleza de las actividades de tratamiento de Evochi no requieren la designación
           obligatoria de un DPD conforme al artículo 37 del RGPD. No obstante, cualquier cuestión relativa a la
           protección de datos puede dirigirse a:
         </p>
         <p>
-          <strong>Contacto de privacidad de Invira</strong><br />
-          <a href="mailto:privacidad@invira.app">privacidad@invira.app</a>
+          <strong>Contacto de privacidad de Evochi</strong><br />
+          <a href="mailto:privacidad@evochi.app">privacidad@evochi.app</a>
         </p>
       </section>
 

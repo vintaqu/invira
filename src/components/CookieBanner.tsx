@@ -6,17 +6,17 @@ export function CookieBanner() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const consent = localStorage.getItem('invira-cookie-consent')
+    const consent = localStorage.getItem('evochi-cookie-consent')
     if (!consent) setVisible(true)
   }, [])
 
   function accept() {
-    localStorage.setItem('invira-cookie-consent', 'accepted')
+    localStorage.setItem('evochi-cookie-consent', 'accepted')
     setVisible(false)
   }
 
   function reject() {
-    localStorage.setItem('invira-cookie-consent', 'rejected')
+    localStorage.setItem('evochi-cookie-consent', 'rejected')
     setVisible(false)
   }
 

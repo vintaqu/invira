@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Términos y Condiciones — Invira',
-  description: 'Condiciones generales de uso de la plataforma Invira.',
+  title: 'Términos y Condiciones — Evochi',
+  description: 'Condiciones generales de uso de la plataforma Evochi.',
 }
 
 export default function TerminosPage() {
@@ -14,11 +14,11 @@ export default function TerminosPage() {
       <section>
         <h2>1. Aceptación de los términos</h2>
         <p>
-          Al acceder o utilizar Invira («el Servicio», «la Plataforma»), aceptas quedar vinculado por estos Términos y Condiciones
+          Al acceder o utilizar Evochi («el Servicio», «la Plataforma»), aceptas quedar vinculado por estos Términos y Condiciones
           («Términos»). Si no estás de acuerdo con alguna parte de ellos, no debes utilizar el Servicio.
         </p>
         <p>
-          Estos Términos constituyen el acuerdo completo entre tú y Invira en relación con el uso del Servicio y prevalecen
+          Estos Términos constituyen el acuerdo completo entre tú y Evochi en relación con el uso del Servicio y prevalecen
           sobre cualquier acuerdo anterior.
         </p>
       </section>
@@ -26,7 +26,7 @@ export default function TerminosPage() {
       <section>
         <h2>2. Descripción del Servicio</h2>
         <p>
-          Invira es una plataforma de creación, personalización y gestión de invitaciones digitales para eventos. Permite a los
+          Evochi es una plataforma de creación, personalización y gestión de invitaciones digitales para eventos. Permite a los
           usuarios («Organizadores») crear páginas web de invitación personalizadas, gestionar listas de invitados, recibir
           confirmaciones de asistencia (RSVP) y acceder a analíticas de sus eventos.
         </p>
@@ -47,7 +47,7 @@ export default function TerminosPage() {
           exacta y completa.
         </p>
         <p>
-          Invira se reserva el derecho de suspender o cancelar cuentas que incumplan estos Términos, sin previo aviso en casos
+          Evochi se reserva el derecho de suspender o cancelar cuentas que incumplan estos Términos, sin previo aviso en casos
           de infracción grave.
         </p>
       </section>
@@ -65,14 +65,14 @@ export default function TerminosPage() {
         <h3>4.2 Proceso de pago</h3>
         <p>
           Los pagos se procesan a través de <strong>Stripe</strong> o <strong>PayPal</strong>. Al completar un pago aceptas también
-          los términos de servicio del proveedor de pagos correspondiente. Invira no almacena datos de tarjetas bancarias.
+          los términos de servicio del proveedor de pagos correspondiente. Evochi no almacena datos de tarjetas bancarias.
         </p>
 
         <h3>4.3 Política de reembolsos</h3>
         <p>
           Dado que el Servicio se activa de forma inmediata tras el pago, <strong>no se realizan reembolsos</strong> salvo en los
           casos previstos por la legislación de consumidores aplicable (principalmente, cuando el servicio no funcione correctamente
-          por causas imputables a Invira). Si tienes un problema, contáctanos en <a href="mailto:soporte@invira.app">soporte@invira.app</a>
+          por causas imputables a Evochi). Si tienes un problema, contáctanos en <a href="mailto:soporte@evochi.app">soporte@evochi.app</a>
           y lo resolveremos.
         </p>
 
@@ -87,13 +87,13 @@ export default function TerminosPage() {
         <h2>5. Contenido del usuario</h2>
         <h3>5.1 Propiedad</h3>
         <p>
-          Conservas todos los derechos sobre el contenido que subas o crees en Invira (textos, imágenes, fotografías, etc.).
+          Conservas todos los derechos sobre el contenido que subas o crees en Evochi (textos, imágenes, fotografías, etc.).
           Al subir contenido a la Plataforma, nos concedes una licencia mundial, no exclusiva, libre de regalías y sublicenciable
           para alojarlo, mostrarlo y entregarlo a los destinatarios de tus invitaciones, únicamente a los efectos de prestar el Servicio.
         </p>
 
         <h3>5.2 Contenido prohibido</h3>
-        <p>No puedes publicar en Invira contenido que:</p>
+        <p>No puedes publicar en Evochi contenido que:</p>
         <ul>
           <li>Sea ilegal, difamatorio, fraudulento, obsceno o que incite al odio.</li>
           <li>Infrinja derechos de propiedad intelectual o industrial de terceros.</li>
@@ -103,20 +103,20 @@ export default function TerminosPage() {
           <li>Se refiera a actividades ilegales o que puedan causar daño a personas o animales.</li>
         </ul>
         <p>
-          Invira se reserva el derecho de eliminar cualquier contenido que infrinja estas normas, sin perjuicio de otras acciones legales.
+          Evochi se reserva el derecho de eliminar cualquier contenido que infrinja estas normas, sin perjuicio de otras acciones legales.
         </p>
 
         <h3>5.3 Responsabilidad sobre el contenido</h3>
         <p>
           Eres el único responsable del contenido de tus invitaciones y de la veracidad de la información que publicas.
-          Invira actúa como mero intermediario técnico y no revisa el contenido de las invitaciones de forma proactiva.
+          Evochi actúa como mero intermediario técnico y no revisa el contenido de las invitaciones de forma proactiva.
         </p>
       </section>
 
       <section>
-        <h2>6. Propiedad intelectual de Invira</h2>
+        <h2>6. Propiedad intelectual de Evochi</h2>
         <p>
-          La Plataforma, su código fuente, diseño, logotipos, marcas, plantillas y demás elementos son propiedad exclusiva de Invira
+          La Plataforma, su código fuente, diseño, logotipos, marcas, plantillas y demás elementos son propiedad exclusiva de Evochi
           o de sus licenciantes, y están protegidos por la legislación de propiedad intelectual e industrial.
         </p>
         <p>
@@ -134,7 +134,7 @@ export default function TerminosPage() {
           antelación cuando sea posible.
         </p>
         <p>
-          Invira puede modificar, suspender o discontinuar cualquier funcionalidad del Servicio en cualquier momento. Para cambios
+          Evochi puede modificar, suspender o discontinuar cualquier funcionalidad del Servicio en cualquier momento. Para cambios
           materiales que afecten a funcionalidades de pago, notificaremos con al menos 30 días de antelación.
         </p>
       </section>
@@ -142,19 +142,19 @@ export default function TerminosPage() {
       <section>
         <h2>8. Limitación de responsabilidad</h2>
         <p>
-          En la máxima medida permitida por la ley, Invira no será responsable de daños indirectos, incidentales, especiales,
+          En la máxima medida permitida por la ley, Evochi no será responsable de daños indirectos, incidentales, especiales,
           consecuentes o punitivos, ni de pérdidas de beneficios o datos, que se deriven del uso o la imposibilidad de uso del Servicio.
         </p>
         <p>
-          La responsabilidad total de Invira frente a ti por cualquier reclamación derivada del uso del Servicio no excederá
-          el importe pagado por ti a Invira en los 12 meses anteriores a la reclamación.
+          La responsabilidad total de Evochi frente a ti por cualquier reclamación derivada del uso del Servicio no excederá
+          el importe pagado por ti a Evochi en los 12 meses anteriores a la reclamación.
         </p>
       </section>
 
       <section>
         <h2>9. Indemnización</h2>
         <p>
-          Aceptas indemnizar y mantener indemne a Invira y a sus directivos, empleados y colaboradores frente a cualquier
+          Aceptas indemnizar y mantener indemne a Evochi y a sus directivos, empleados y colaboradores frente a cualquier
           reclamación, pérdida, daño o gasto (incluidos honorarios razonables de abogados) que se derive de:
           (a) tu uso del Servicio; (b) el contenido de tus invitaciones; o (c) el incumplimiento de estos Términos.
         </p>
@@ -164,10 +164,10 @@ export default function TerminosPage() {
         <h2>10. Suspensión y cancelación de cuentas</h2>
         <p>
           Puedes cancelar tu cuenta en cualquier momento desde la configuración de tu perfil o escribiendo a
-          <a href="mailto:soporte@invira.app">soporte@invira.app</a>. La cancelación no da derecho a reembolso de pagos ya realizados.
+          <a href="mailto:soporte@evochi.app">soporte@evochi.app</a>. La cancelación no da derecho a reembolso de pagos ya realizados.
         </p>
         <p>
-          Invira puede suspender o cancelar tu cuenta si: incumples estos Términos de forma reiterada o grave; no pagas las tarifas
+          Evochi puede suspender o cancelar tu cuenta si: incumples estos Términos de forma reiterada o grave; no pagas las tarifas
           debidas; tu cuenta está siendo utilizada de forma fraudulenta; o así lo exige la ley.
         </p>
       </section>
@@ -194,7 +194,7 @@ export default function TerminosPage() {
         <h2>13. Contacto</h2>
         <p>
           Para cualquier consulta sobre estos Términos:<br />
-          <strong>Invira</strong> · <a href="mailto:legal@invira.app">legal@invira.app</a>
+          <strong>Evochi</strong> · <a href="mailto:legal@evochi.app">legal@evochi.app</a>
         </p>
       </section>
     </article>

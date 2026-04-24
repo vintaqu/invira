@@ -1,4 +1,4 @@
-# Invira — SaaS de Invitaciones Digitales
+# Evochi — SaaS de Invitaciones Digitales
 
 > Plataforma completa para crear y gestionar invitaciones digitales para bodas, cumpleaños, bautizos, quinceañeras, graduaciones y eventos corporativos. Con RSVP online, IA generativa, QR check-in, pagos integrados y panel de analíticas.
 
@@ -33,8 +33,8 @@
 
 | Email | Contraseña | Rol |
 |-------|-----------|-----|
-| `admin@invira.app` | `admin123` | ADMIN |
-| `demo@invira.app` | `demo1234` | USER |
+| `admin@evochi.app` | `admin123` | ADMIN |
+| `demo@evochi.app` | `demo1234` | USER |
 
 ---
 
@@ -141,7 +141,7 @@
 ## Estructura del proyecto
 
 ```
-invira/
+evochi/
 ├── prisma/
 │   ├── schema.prisma          # Modelo de datos (12+ entidades)
 │   ├── seed.ts                # Datos de demo
@@ -317,8 +317,8 @@ Los precios son configurables desde el panel admin sin tocar código. Soporta de
 
 ### 1. Clonar e instalar
 ```bash
-git clone https://github.com/tu-usuario/invira.git
-cd invira
+git clone https://github.com/tu-usuario/evochi.git
+cd evochi
 npm install
 ```
 
@@ -330,8 +330,8 @@ cp .env.example .env    # Prisma lee .env, no .env.local
 
 Edita `.env.local` — mínimo necesario para arrancar:
 ```env
-DATABASE_URL="postgresql://postgres:password@localhost:5432/invira"
-DIRECT_URL="postgresql://postgres:password@localhost:5432/invira"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/evochi"
+DIRECT_URL="postgresql://postgres:password@localhost:5432/evochi"
 NEXTAUTH_SECRET="cualquier-string-aleatorio-largo"
 NEXTAUTH_URL="http://localhost:3000"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
@@ -341,9 +341,9 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```bash
 # Levantar PostgreSQL con Docker
 docker run -d \
-  --name invira-db \
+  --name evochi-db \
   -e POSTGRES_PASSWORD=password \
-  -e POSTGRES_DB=invira \
+  -e POSTGRES_DB=evochi \
   -p 5432:5432 \
   postgres:15
 
@@ -381,7 +381,7 @@ Sin esta clave la IA usa textos de fallback estáticos.
 | `STRIPE_WEBHOOK_SECRET` | ✅ | Secret del webhook Stripe |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | ✅ | Clave pública Stripe |
 | `RESEND_API_KEY` | ✅ | Emails |
-| `EMAIL_FROM` | ✅ | `Invira <hola@tudominio.com>` |
+| `EMAIL_FROM` | ✅ | `Evochi <hola@tudominio.com>` |
 | `CLOUDINARY_CLOUD_NAME` | ✅ | Almacenamiento imágenes |
 | `CLOUDINARY_API_KEY` | ✅ | |
 | `CLOUDINARY_API_SECRET` | ✅ | |
@@ -463,4 +463,4 @@ npm run db:reset      # Reset completo + seed (⚠️ borra todo)
 
 ---
 
-© 2025 Invira — Todos los derechos reservados.
+© 2025 Evochi — Todos los derechos reservados.

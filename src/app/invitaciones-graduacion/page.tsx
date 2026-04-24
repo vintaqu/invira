@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/landing/LandingPage'
 
 export const metadata: Metadata = {
-  title: 'Invitaciones de Graduación Online y Digitales — Celebra tu Logro | Invira',
+  title: 'Invitaciones de Graduación Online y Digitales — Celebra tu Logro | Evochi',
   description: 'Crea invitaciones de graduación digitales con diseño elegante, RSVP online y cuenta regresiva. Para grados, másteres y doctorados. Gratuito para empezar.',
   keywords: ['invitaciones graduacion online','invitaciones digitales graduacion','invitación graduación digital','invitaciones titulación online','invitaciones fin de carrera','invitaciones master graduacion','tarjetas graduacion digitales'],
-  alternates: { canonical: 'https://invira.app/invitaciones-graduacion' },
-  openGraph: { title: 'Invitaciones de Graduación Online | Invira', description: 'Invitaciones de graduación con diseño elegante y RSVP online. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Invira' },
+  alternates: { canonical: 'https://evochi.app/invitaciones-graduacion' },
+  openGraph: { title: 'Invitaciones de Graduación Online | Evochi', description: 'Invitaciones de graduación con diseño elegante y RSVP online. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Evochi' },
 }
 
 const FEATURES = [
@@ -28,14 +28,14 @@ const FAQS = [
 ]
 
 const TESTIMONIALS = [
-  { text: 'Después de 6 años de carrera, quería que la invitación de mi graduación estuviera a la altura. Invira lo consiguió en 15 minutos.', name: 'Daniel F.', location: 'Graduación Medicina · Salamanca', rating: '★★★★★' },
+  { text: 'Después de 6 años de carrera, quería que la invitación de mi graduación estuviera a la altura. Evochi lo consiguió en 15 minutos.', name: 'Daniel F.', location: 'Graduación Medicina · Salamanca', rating: '★★★★★' },
   { text: 'Mis padres y abuelos encontraron la invitación preciosa y muy fácil de abrir. Las confirmaciones llegaron sin llamar a nadie.', name: 'Marta L.', location: 'Graduación · Barcelona', rating: '★★★★★' },
 ]
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', url: 'https://invira.app/invitaciones-graduacion', name: 'Invitaciones de Graduación Online | Invira', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://invira.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de graduación', item: 'https://invira.app/invitaciones-graduacion' }] } },
+    { '@type': 'WebPage', url: 'https://evochi.app/invitaciones-graduacion', name: 'Invitaciones de Graduación Online | Evochi', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://evochi.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de graduación', item: 'https://evochi.app/invitaciones-graduacion' }] } },
     { '@type': 'FAQPage', mainEntity: FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 }

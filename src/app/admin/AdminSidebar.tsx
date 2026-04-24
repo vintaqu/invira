@@ -28,7 +28,7 @@ export default function AdminSidebar({ user }: { user: { name?: string | null; e
             <circle cx="72" cy="22" r="10" fill="white" opacity="0.95"/>
             <circle cx="78" cy="15" r="5.5" fill="white"/>
           </svg>
-          <span style={{ fontSize:18, color:'#1a1a1a', fontWeight:500, letterSpacing:-0.4 }}>invira</span>
+          <span style={{ fontSize:18, color:'#1a1a1a', fontWeight:500, letterSpacing:-0.4 }}>evochi</span>
         </Link>
         <div style={{ display:'inline-flex', alignItems:'center', gap:5, background:'#fff0ee', borderRadius:6, padding:'3px 8px' }}>
           <span style={{ fontSize:9, color:'#dc2626', fontWeight:700, letterSpacing:1.5, textTransform:'uppercase' }}>Admin</span>

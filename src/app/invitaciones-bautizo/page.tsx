@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/landing/LandingPage'
 
 export const metadata: Metadata = {
-  title: 'Invitaciones de Bautizo Online y Digitales — Diseño Delicado | Invira',
+  title: 'Invitaciones de Bautizo Online y Digitales — Diseño Delicado | Evochi',
   description: 'Crea invitaciones de bautizo digitales con diseño delicado, RSVP online y cuenta regresiva. Comparte por WhatsApp. Gratuito para empezar.',
   keywords: ['invitaciones bautizo online','invitaciones bautizo digitales','invitaciones bautizo personalizadas','invitación bautizo digital','tarjetas bautizo online','invitaciones bautizo españa','invitaciones bautizo mexico'],
-  alternates: { canonical: 'https://invira.app/invitaciones-bautizo' },
-  openGraph: { title: 'Invitaciones de Bautizo Online | Invira', description: 'Invitaciones de bautizo digitales con diseño delicado y RSVP online. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Invira' },
+  alternates: { canonical: 'https://evochi.app/invitaciones-bautizo' },
+  openGraph: { title: 'Invitaciones de Bautizo Online | Evochi', description: 'Invitaciones de bautizo digitales con diseño delicado y RSVP online. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Evochi' },
 }
 
 const FEATURES = [
@@ -36,7 +36,7 @@ const TESTIMONIALS = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', url: 'https://invira.app/invitaciones-bautizo', name: 'Invitaciones de Bautizo Online | Invira', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://invira.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de bautizo', item: 'https://invira.app/invitaciones-bautizo' }] } },
+    { '@type': 'WebPage', url: 'https://evochi.app/invitaciones-bautizo', name: 'Invitaciones de Bautizo Online | Evochi', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://evochi.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de bautizo', item: 'https://evochi.app/invitaciones-bautizo' }] } },
     { '@type': 'FAQPage', mainEntity: FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 }

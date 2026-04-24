@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/landing/LandingPage'
 
 export const metadata: Metadata = {
-  title: 'Invitaciones de Quinceañera Online y Digitales — Únicas y Especiales | Invira',
+  title: 'Invitaciones de Quinceañera Online y Digitales — Únicas y Especiales | Evochi',
   description: 'Crea invitaciones de quinceañera digitales con diseño elegante, RSVP online y cuenta regresiva. Para los 15 años más especiales. Gratuito para empezar.',
   keywords: ['invitaciones quinceañera online','invitaciones 15 años digitales','invitaciones quinceañera digital','invitaciones quince años','tarjetas quinceañera online','invitaciones quinceañera mexico','invitaciones xv años digitales'],
-  alternates: { canonical: 'https://invira.app/invitaciones-quinceAnera' },
-  openGraph: { title: 'Invitaciones de Quinceañera Online | Invira', description: 'Invitaciones de quinceañera con diseño elegante, RSVP y cuenta regresiva. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Invira' },
+  alternates: { canonical: 'https://evochi.app/invitaciones-quinceAnera' },
+  openGraph: { title: 'Invitaciones de Quinceañera Online | Evochi', description: 'Invitaciones de quinceañera con diseño elegante, RSVP y cuenta regresiva. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Evochi' },
 }
 
 const FEATURES = [
@@ -30,13 +30,13 @@ const FAQS = [
 
 const TESTIMONIALS = [
   { text: 'La invitación de los XV de mi hija quedó preciosa en rosa y dorado. Todos los invitados decían que jamás habían visto algo así.', name: 'Patricia G.', location: 'Quinceañera · Ciudad de México', rating: '★★★★★' },
-  { text: 'Usamos Invira para los 15 de mi sobrina y fue la mejor decisión. Las confirmaciones llegaron solas y la lista quedó perfecta.', name: 'Mónica R.', location: 'Quinceañera · Guadalajara', rating: '★★★★★' },
+  { text: 'Usamos Evochi para los 15 de mi sobrina y fue la mejor decisión. Las confirmaciones llegaron solas y la lista quedó perfecta.', name: 'Mónica R.', location: 'Quinceañera · Guadalajara', rating: '★★★★★' },
 ]
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', url: 'https://invira.app/invitaciones-quinceAnera', name: 'Invitaciones de Quinceañera Online | Invira', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://invira.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de quinceañera', item: 'https://invira.app/invitaciones-quinceAnera' }] } },
+    { '@type': 'WebPage', url: 'https://evochi.app/invitaciones-quinceAnera', name: 'Invitaciones de Quinceañera Online | Evochi', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://evochi.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones de quinceañera', item: 'https://evochi.app/invitaciones-quinceAnera' }] } },
     { '@type': 'FAQPage', mainEntity: FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 }

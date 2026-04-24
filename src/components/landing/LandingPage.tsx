@@ -62,7 +62,7 @@ export function LandingPage({
             <circle cx="72" cy="22" r="10" fill="white" opacity="0.95"/>
             <circle cx="78" cy="15" r="5.5" fill="white"/>
           </svg>
-          <span style={{ fontFamily: ff, fontSize: 18, color: dark, fontWeight: 600, letterSpacing: -0.3 }}>invira</span>
+          <span style={{ fontFamily: ff, fontSize: 18, color: dark, fontWeight: 600, letterSpacing: -0.3 }}>evochi</span>
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <Link href="/" style={{ fontSize: 13, color: '#666', textDecoration: 'none' }}>Inicio</Link>
@@ -246,14 +246,14 @@ export function LandingPage({
             <circle cx="72" cy="22" r="10" fill="white" opacity="0.95"/>
             <circle cx="78" cy="15" r="5.5" fill="white"/>
           </svg>
-          <span style={{ fontFamily: ff, fontSize: 15, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>invira</span>
+          <span style={{ fontFamily: ff, fontSize: 15, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>evochi</span>
         </Link>
         <div style={{ display: 'flex', gap: 20 }}>
           {[['Privacidad','/legal/privacidad'],['Términos','/legal/terminos'],['Cookies','/legal/cookies']].map(([l,h])=>(
             <Link key={h} href={h} style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', textDecoration: 'none' }}>{l}</Link>
           ))}
         </div>
-        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>© 2025 Invira</p>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>© 2025 Evochi</p>
       </footer>
     </main>
   )

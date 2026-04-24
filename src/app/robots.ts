@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  const url = process.env.NEXT_PUBLIC_APP_URL ?? 'https://invira.app'
+  const url = process.env.NEXT_PUBLIC_APP_URL ?? 'https://evochi.app'
   return {
     rules: [
       {

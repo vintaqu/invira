@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { LandingPage } from '@/components/landing/LandingPage'
 
 export const metadata: Metadata = {
-  title: 'Invitaciones para Eventos Corporativos Online — Profesionales y con Analytics | Invira',
+  title: 'Invitaciones para Eventos Corporativos Online — Profesionales y con Analytics | Evochi',
   description: 'Crea invitaciones digitales para eventos de empresa, conferencias y lanzamientos. RSVP profesional, analytics completos y QR check-in. Gratuito para empezar.',
   keywords: ['invitaciones eventos corporativos','invitaciones empresa online','invitaciones corporativas digitales','invitaciones conferencias online','eventos empresa digitales','invitaciones lanzamiento producto','invitaciones gala empresa'],
-  alternates: { canonical: 'https://invira.app/invitaciones-corporativas' },
-  openGraph: { title: 'Invitaciones Corporativas Online | Invira', description: 'Invitaciones para eventos de empresa con RSVP, analytics y QR check-in. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Invira' },
+  alternates: { canonical: 'https://evochi.app/invitaciones-corporativas' },
+  openGraph: { title: 'Invitaciones Corporativas Online | Evochi', description: 'Invitaciones para eventos de empresa con RSVP, analytics y QR check-in. Gratuito para empezar.', type: 'website', locale: 'es_ES', siteName: 'Evochi' },
 }
 
 const FEATURES = [
@@ -37,7 +37,7 @@ const TESTIMONIALS = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', url: 'https://invira.app/invitaciones-corporativas', name: 'Invitaciones Corporativas Online | Invira', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://invira.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones corporativas', item: 'https://invira.app/invitaciones-corporativas' }] } },
+    { '@type': 'WebPage', url: 'https://evochi.app/invitaciones-corporativas', name: 'Invitaciones Corporativas Online | Evochi', breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://evochi.app' },{ '@type': 'ListItem', position: 2, name: 'Invitaciones corporativas', item: 'https://evochi.app/invitaciones-corporativas' }] } },
     { '@type': 'FAQPage', mainEntity: FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
   ],
 }

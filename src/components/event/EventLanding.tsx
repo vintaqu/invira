@@ -648,10 +648,10 @@ export function EventLanding({ event, guestToken, channel }: {
         </p>
         <div style={{ display:'inline-flex', flexDirection:'column', alignItems:'center', gap:10 }}>
           <p style={{ fontSize:10, letterSpacing:3, textTransform:'uppercase', color:'#ccc', margin:0 }}>Esta invitación fue creada con</p>
-          <a href={`${process.env.NEXT_PUBLIC_APP_URL??'https://invira.app'}/?utm_source=invitation&utm_medium=footer&utm_campaign=${event.slug}`}
+          <a href={`${process.env.NEXT_PUBLIC_APP_URL??'https://evochi.app'}/?utm_source=invitation&utm_medium=footer&utm_campaign=${event.slug}`}
             target="_blank" rel="noopener"
             style={{ display:'inline-flex', alignItems:'center', gap:10, background:a(0.08), border:`1px solid ${a(0.22)}`, borderRadius:40, padding:'9px 22px', textDecoration:'none' }}>
-            <span style={{ fontFamily:"'Inter','Helvetica Neue',sans-serif", fontSize:16, color:accent, fontWeight:500 }}>invira</span>
+            <span style={{ fontFamily:"'Inter','Helvetica Neue',sans-serif", fontSize:16, color:accent, fontWeight:500 }}>evochi</span>
             <span style={{ fontSize:11, color:'#ccc' }}>·</span>
             <span style={{ fontSize:12, color:'#999' }}>Crea tu invitación gratis →</span>
           </a>

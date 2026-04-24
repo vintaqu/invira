@@ -62,7 +62,7 @@ export async function createPayPalOrder(params: {
         paypal: {
           experience_context: {
             payment_method_preference: 'IMMEDIATE_PAYMENT_REQUIRED',
-            brand_name: 'Invira',
+            brand_name: 'Evochi',
             locale: 'es-ES',
             landing_page: 'LOGIN',
             shipping_preference: 'NO_SHIPPING',

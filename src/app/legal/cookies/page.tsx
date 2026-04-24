@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Política de Cookies — Invira',
-  description: 'Información sobre las cookies y tecnologías similares que utiliza Invira.',
+  title: 'Política de Cookies — Evochi',
+  description: 'Información sobre las cookies y tecnologías similares que utiliza Evochi.',
 }
 
 export default function CookiesPage() {
@@ -39,25 +39,25 @@ export default function CookiesPage() {
           <tbody>
             <tr>
               <td>next-auth.session-token</td>
-              <td>Invira</td>
+              <td>Evochi</td>
               <td>Autenticación de sesión del usuario</td>
               <td>30 días</td>
             </tr>
             <tr>
               <td>next-auth.csrf-token</td>
-              <td>Invira</td>
+              <td>Evochi</td>
               <td>Protección contra ataques CSRF</td>
               <td>Sesión</td>
             </tr>
             <tr>
               <td>next-auth.callback-url</td>
-              <td>Invira</td>
+              <td>Evochi</td>
               <td>Redirección tras el inicio de sesión</td>
               <td>Sesión</td>
             </tr>
             <tr>
-              <td>invira-cookie-consent</td>
-              <td>Invira</td>
+              <td>evochi-cookie-consent</td>
+              <td>Evochi</td>
               <td>Guardar tus preferencias de cookies</td>
               <td>12 meses</td>
             </tr>
@@ -76,7 +76,7 @@ export default function CookiesPage() {
           <tbody>
             <tr>
               <td>Analítica interna</td>
-              <td>Invira</td>
+              <td>Evochi</td>
               <td>Tracking de visitas a invitaciones y tasas de RSVP</td>
               <td>Sesión / servidor</td>
             </tr>
@@ -93,8 +93,8 @@ export default function CookiesPage() {
           </thead>
           <tbody>
             <tr>
-              <td>invira-theme</td>
-              <td>Invira</td>
+              <td>evochi-theme</td>
+              <td>Evochi</td>
               <td>Preferencia de tema visual del editor</td>
               <td>12 meses</td>
             </tr>
@@ -104,7 +104,7 @@ export default function CookiesPage() {
         <h3>2.4 Cookies de terceros</h3>
         <p>
           Algunos proveedores que utilizamos pueden instalar sus propias cookies cuando interactúas con sus servicios
-          integrados en Invira.
+          integrados en Evochi.
         </p>
         <table>
           <thead>
@@ -133,7 +133,7 @@ export default function CookiesPage() {
       <section>
         <h2>3. Cómo gestionar las cookies</h2>
         <p>
-          Cuando accedes a Invira por primera vez, te mostramos un banner para que puedas aceptar o rechazar las cookies
+          Cuando accedes a Evochi por primera vez, te mostramos un banner para que puedas aceptar o rechazar las cookies
           no esenciales. Puedes cambiar tu elección en cualquier momento haciendo clic en «Gestionar cookies» en el pie de página.
         </p>
         <p>
@@ -163,7 +163,7 @@ export default function CookiesPage() {
         <h2>5. Contacto</h2>
         <p>
           Si tienes dudas sobre nuestra política de cookies o sobre el tratamiento de tus datos:<br />
-          <strong>Invira</strong> · <a href="mailto:privacidad@invira.app">privacidad@invira.app</a>
+          <strong>Evochi</strong> · <a href="mailto:privacidad@evochi.app">privacidad@evochi.app</a>
         </p>
       </section>
     </article>
