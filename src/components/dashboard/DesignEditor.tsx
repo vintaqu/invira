@@ -17,6 +17,11 @@ interface DesignConfig {
   decorationStyle: string   // 'none' | 'floral' | 'geometric' | 'minimal' | 'romantic' | 'stars'
   layoutStyle: string       // 'split' | 'centered' | 'fullbleed' | 'asymmetric'
   animationIntensity: string // 'none' | 'minimal' | 'moderate'
+  borderStyle: string       // 'none' | 'thin' | 'double' | 'ornate'
+  separatorStyle: string    // 'line' | 'dots' | 'diamond' | 'floral' | 'stars' | 'waves'
+  heroHeight: number        // 35-75 %
+  textAlign: string         // 'left' | 'center' | 'right'
+  titleSize: string         // 'small' | 'medium' | 'large' | 'xlarge'
 }
 
 interface Props {

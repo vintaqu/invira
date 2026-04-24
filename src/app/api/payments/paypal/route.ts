@@ -42,14 +42,11 @@ export async function POST(req: NextRequest) {
     const event = await prisma.event.findFirst({ where: { id: eventId, userId } })
     if (!event) return NextResponse.json({ error: 'Evento no encontrado' }, { status: 404 })
 
-    if (event.status === 'PAID') {
-      return NextResponse.json({ already: true })
-    }
+    if (event.status === 'PAID') return NextResponse.json({ already: true })
 
     const payment = await prisma.payment.create({
       data: {
-        userId,
-        eventId,
+        userId, eventId,
         amount: livePrice,
         currency: product.currency,
         status: 'PENDING',
