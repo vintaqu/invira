@@ -22,9 +22,11 @@ interface AnalyticsData {
 }
 interface Event {
   id: string; title: string; slug: string; status: string; eventDate: string
+  type?: string
   coupleNames?: string; venueName?: string; venueAddress?: string; venueCity?: string
   description?: string; heroImage?: string; dressCode?: string; isPrivate: boolean
   doors?: string; ceremony?: string; reception?: string; locale?: string
+  menuJson?: any; customData?: any; musicUrl?: string; latitude?: number; longitude?: number
   agendaJson?: AgendaItem[]; _count?: { guests: number; rsvps: number }
 }
 
