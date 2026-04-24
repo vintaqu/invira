@@ -1,3 +1,4 @@
+import React from 'react'
 import Link from 'next/link'
 
 interface FAQ { q: string; a: string }
@@ -8,7 +9,7 @@ interface LandingPageProps {
   // SEO / identity
   slug: string
   type: string           // e.g. 'boda', 'cumpleaños'
-  heroTitle: JSX.Element // allows <em> inside
+  heroTitle: React.ReactNode // allows <em> inside
   heroSubtitle: string
   heroBg: string         // CSS gradient or color
 
