@@ -66,80 +66,119 @@ export default function ImportGuestsPage() {
     a.click()
   }
 
-  const s = { fontFamily:'Inter,sans-serif', fontWeight:300 } as React.CSSProperties
+  const ff = 'Inter,sans-serif'
 
   return (
-    <div style={{ padding:40, maxWidth:800, ...s }}>
-      <div style={{ marginBottom:28 }}>
+    <div style={{ padding:'clamp(20px,5vw,40px)', maxWidth:800, fontFamily:ff }}>
+      <div style={{ marginBottom:24 }}>
         <Link href={`/dashboard/events/${id}`} style={{ fontSize:13, color:'#888', textDecoration:'none' }}>← Volver al editor</Link>
       </div>
-      <h1 style={{ fontFamily:'Playfair Display,serif', fontSize:36, fontWeight:400, color:'#1a1a1a', marginBottom:6 }}>Importar invitados</h1>
-      <p style={{ fontSize:14, color:'#888', marginBottom:32 }}>Sube un archivo CSV con la lista de invitados</p>
 
+      <h1 style={{ fontFamily:'Playfair Display,serif', fontSize:'clamp(28px,6vw,36px)', fontWeight:400, color:'#1a1a1a', marginBottom:6 }}>Importar invitados</h1>
+      <p style={{ fontSize:14, color:'#888', marginBottom:28 }}>Sube un archivo CSV con la lista de invitados</p>
+
+      {/* Format info - stacked on mobile */}
       <div style={{ background:'#fff7f0', border:'1px solid #f0d8c0', borderRadius:12, padding:16, marginBottom:20 }}>
-        <p style={{ fontSize:13, fontWeight:500, color:'#8a4520', marginBottom:6 }}>Formato esperado</p>
-        <p style={{ fontSize:12, color:'#a06040', lineHeight:1.7, margin:0 }}>
-          Primera fila: cabecera. Columnas reconocidas:
-          <code style={{ background:'rgba(0,0,0,0.06)', padding:'1px 5px', borderRadius:4, margin:'0 3px' }}>nombre</code>
-          <code style={{ background:'rgba(0,0,0,0.06)', padding:'1px 5px', borderRadius:4, margin:'0 3px' }}>email</code>
-          <code style={{ background:'rgba(0,0,0,0.06)', padding:'1px 5px', borderRadius:4, margin:'0 3px' }}>telefono</code>
-          <code style={{ background:'rgba(0,0,0,0.06)', padding:'1px 5px', borderRadius:4, margin:'0 3px' }}>grupo</code>
+        <p style={{ fontSize:13, fontWeight:600, color:'#8a4520', marginBottom:10 }}>Formato esperado</p>
+        <p style={{ fontSize:12, color:'#a06040', marginBottom:10 }}>Primera fila: cabecera. Columnas reconocidas:</p>
+        {/* Stacked pills for mobile */}
+        <div style={{ display:'flex', flexWrap:'wrap', gap:6 }}>
+          {['nombre','email','telefono','grupo'].map(col => (
+            <code key={col} style={{ background:'rgba(0,0,0,0.08)', padding:'4px 10px', borderRadius:6, fontSize:12, color:'#8a4520', display:'inline-block' }}>
+              {col}
+            </code>
+          ))}
+        </div>
+        <p style={{ fontSize:11, color:'#b07050', marginTop:10, marginBottom:0 }}>
+          También acepta: name, correo, phone, tel, group, mesa
         </p>
       </div>
 
-      <button onClick={downloadExample} style={{ fontSize:13, color:'#84C5BC', background:'none', border:'1px solid #f0d8c0', padding:'8px 18px', borderRadius:8, cursor:'pointer', fontFamily:'Inter,sans-serif', marginBottom:24 }}>
+      <button onClick={downloadExample}
+        style={{ fontSize:13, color:'#84C5BC', background:'none', border:'1px solid #d0e8e5', padding:'10px 18px', borderRadius:8, cursor:'pointer', fontFamily:ff, marginBottom:24, display:'block', width:'100%', textAlign:'left' as const }}>
         📥 Descargar CSV de ejemplo
       </button>
 
+      {/* Drop zone */}
       <div onClick={() => fileRef.current?.click()}
-        style={{ border:'2px dashed #e8e0d2', borderRadius:16, padding:48, textAlign:'center', cursor:'pointer', marginBottom:24, background:'#faf8f4', transition:'border-color .15s' }}
-        onMouseEnter={e => (e.currentTarget as any).style.borderColor='#84C5BC'}
-        onMouseLeave={e => (e.currentTarget as any).style.borderColor='#e8e0d2'}>
+        style={{ border:'2px dashed #84C5BC', borderRadius:16, padding:'clamp(32px,8vw,48px) 24px', textAlign:'center', cursor:'pointer', marginBottom:24, background:'#f0fafa', transition:'all .15s' }}
+        onMouseEnter={e => (e.currentTarget as any).style.background='#e0f5f2'}
+        onMouseLeave={e => (e.currentTarget as any).style.background='#f0fafa'}>
         <div style={{ fontSize:40, marginBottom:12 }}>📄</div>
-        <p style={{ fontSize:15, color:'#1a1a1a', marginBottom:4 }}>Click para seleccionar CSV</p>
+        <p style={{ fontSize:16, color:'#1a1a1a', marginBottom:4, fontWeight:500 }}>Toca para seleccionar CSV</p>
         <p style={{ fontSize:13, color:'#aaa' }}>Archivos .csv o .txt</p>
         <input ref={fileRef} type="file" accept=".csv,.txt" style={{ display:'none' }} onChange={handleFile} />
       </div>
 
-      {error && <div style={{ background:'#fef0f0', border:'1px solid #f0c0c0', borderRadius:12, padding:14, marginBottom:20, fontSize:13, color:'#a32d2d' }}>{error}</div>}
+      {error && (
+        <div style={{ background:'#fef0f0', border:'1px solid #f0c0c0', borderRadius:12, padding:14, marginBottom:20, fontSize:13, color:'#a32d2d' }}>
+          ⚠️ {error}
+        </div>
+      )}
 
       {result && (
         <div style={{ background:'#e6f5ec', border:'1px solid #c0e0d0', borderRadius:12, padding:20, marginBottom:20 }}>
-          <p style={{ fontSize:14, color:'#1a6b3c', fontWeight:500, marginBottom:4 }}>✓ Importación completada</p>
+          <p style={{ fontSize:14, color:'#1a6b3c', fontWeight:600, marginBottom:4 }}>✓ Importación completada</p>
           <p style={{ fontSize:13, color:'#2d7a50', marginBottom:12 }}>{result.created} invitados creados correctamente</p>
           <button onClick={() => router.push(`/dashboard/events/${id}`)}
-            style={{ background:'#1a6b3c', color:'#fff', border:'none', padding:'10px 20px', borderRadius:8, fontSize:13, cursor:'pointer', fontFamily:'Inter,sans-serif' }}>
-            Ir al listado →
+            style={{ background:'#1a6b3c', color:'#fff', border:'none', padding:'10px 20px', borderRadius:8, fontSize:13, cursor:'pointer', fontFamily:ff }}>
+            Ver invitados →
           </button>
         </div>
       )}
 
+      {/* Preview - card layout on mobile instead of grid */}
       {preview.length > 0 && (
         <div>
-          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
-            <p style={{ fontSize:14, color:'#1a1a1a', fontWeight:500 }}>{preview.length} invitados encontrados — previsualización</p>
-            <button onClick={() => setPreview([])} style={{ fontSize:12, color:'#888', background:'none', border:'none', cursor:'pointer' }}>Limpiar</button>
+          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14, flexWrap:'wrap', gap:8 }}>
+            <p style={{ fontSize:14, color:'#1a1a1a', fontWeight:500, margin:0 }}>{preview.length} invitados encontrados</p>
+            <button onClick={() => setPreview([])} style={{ fontSize:12, color:'#888', background:'none', border:'none', cursor:'pointer', padding:4 }}>✕ Limpiar</button>
           </div>
-          <div style={{ background:'#fff', border:'1px solid #e8e0d2', borderRadius:16, overflow:'hidden', marginBottom:20 }}>
+
+          {/* Desktop: table | Mobile: cards */}
+          <div className="import-preview-desktop" style={{ background:'#fff', border:'1px solid #e8e0d2', borderRadius:16, overflow:'hidden', marginBottom:20 }}>
             <div style={{ display:'grid', gridTemplateColumns:'2fr 2fr 1.5fr 1fr', padding:'10px 16px', background:'#faf8f4', borderBottom:'1px solid #f0ece6', fontSize:11, letterSpacing:2, textTransform:'uppercase' as const, color:'#888' }}>
               <span>Nombre</span><span>Email</span><span>Teléfono</span><span>Grupo</span>
             </div>
             {preview.slice(0,10).map((row, i) => (
               <div key={i} style={{ display:'grid', gridTemplateColumns:'2fr 2fr 1.5fr 1fr', padding:'10px 16px', borderBottom: i < Math.min(preview.length,10)-1 ? '1px solid #f5f0ea' : 'none', fontSize:13, color:'#444' }}>
-                <span style={{ color:'#1a1a1a' }}>{row.name}</span>
-                <span>{row.email || '—'}</span>
+                <span style={{ color:'#1a1a1a', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{row.name}</span>
+                <span style={{ overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{row.email || '—'}</span>
                 <span>{row.phone || '—'}</span>
                 <span>{row.group || '—'}</span>
               </div>
             ))}
             {preview.length > 10 && <div style={{ padding:'10px 16px', fontSize:12, color:'#888', borderTop:'1px solid #f0ece6' }}>… y {preview.length-10} más</div>}
           </div>
+
+          {/* Mobile cards */}
+          <div className="import-preview-mobile" style={{ marginBottom:20, display:'flex', flexDirection:'column', gap:8 }}>
+            {preview.slice(0,10).map((row, i) => (
+              <div key={i} style={{ background:'#fff', border:'1px solid #e8e0d2', borderRadius:12, padding:'12px 14px' }}>
+                <p style={{ fontSize:14, fontWeight:500, color:'#1a1a1a', margin:'0 0 4px' }}>{row.name}</p>
+                {row.email && <p style={{ fontSize:12, color:'#888', margin:'0 0 2px' }}>✉ {row.email}</p>}
+                {row.phone && <p style={{ fontSize:12, color:'#888', margin:'0 0 2px' }}>📱 {row.phone}</p>}
+                {row.group && <p style={{ fontSize:12, color:'#84C5BC', margin:0 }}>👥 {row.group}</p>}
+              </div>
+            ))}
+            {preview.length > 10 && <p style={{ fontSize:12, color:'#888', textAlign:'center', padding:8 }}>… y {preview.length-10} más</p>}
+          </div>
+
           <button onClick={doImport} disabled={importing}
-            style={{ background:'#1a1a1a', color:'#fff', border:'none', padding:'14px 36px', borderRadius:12, fontSize:14, fontWeight:500, cursor:'pointer', fontFamily:'Inter,sans-serif', opacity: importing ? 0.6 : 1 }}>
+            style={{ background:'#1a1a1a', color:'#fff', border:'none', padding:'15px 36px', borderRadius:12, fontSize:14, fontWeight:500, cursor:'pointer', fontFamily:ff, opacity: importing ? 0.6 : 1, width:'100%' }}>
             {importing ? 'Importando…' : `Importar ${preview.length} invitados`}
           </button>
         </div>
       )}
+
+      <style>{`
+        .import-preview-desktop { display: block; }
+        .import-preview-mobile  { display: none;  }
+        @media (max-width: 600px) {
+          .import-preview-desktop { display: none;  }
+          .import-preview-mobile  { display: flex;  }
+        }
+      `}</style>
     </div>
   )
 }
