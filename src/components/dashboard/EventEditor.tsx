@@ -851,7 +851,7 @@ function TabGuests({ eventId, eventSlug, eventTitle, coupleNames, isPaid }: { ev
       {showAdd && (
         <div style={{ background: '#fff', border: '1px solid #e8e2db', borderRadius: 16, padding: 20, marginBottom: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
           <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: 1.5, textTransform: 'uppercase', color: '#a89880', marginBottom: 14 }}>Nuevo invitado</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 12 }}>
+          <div className="ee-guest-new-form" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 12 }}>
             {[
               { key: 'name', label: 'Nombre *', placeholder: 'Ana García' },
               { key: 'email', label: 'Email', placeholder: 'ana@email.com' },
@@ -859,10 +859,10 @@ function TabGuests({ eventId, eventSlug, eventTitle, coupleNames, isPaid }: { ev
               { key: 'group', label: 'Grupo', placeholder: 'Familia novia' },
               { key: 'tableName', label: 'Mesa', placeholder: 'Mesa 3' },
             ].map(f => (
-              <div key={f.key}>
+              <div key={f.key} style={{ minWidth: 0 }}>
                 <label style={{ fontSize: 11, fontWeight: 600, color: '#a89880', letterSpacing: 1.5, textTransform: 'uppercase', display: 'block', marginBottom: 6 }}>{f.label}</label>
                 <input value={(newGuest as any)[f.key]} onChange={e => setNewGuest({ ...newGuest, [f.key]: e.target.value })}
-                  placeholder={f.placeholder} className={inputCls} />
+                  placeholder={f.placeholder} className={inputCls} style={{ width: '100%', boxSizing: 'border-box' }} />
               </div>
             ))}
           </div>

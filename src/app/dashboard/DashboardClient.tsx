@@ -137,7 +137,7 @@ export function DashboardClient({ userName, events: init }: { userName:string; e
         </div>
 
         {/* Stats */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:12, marginBottom:36 }}>
+        <div className="ee-metrics" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:12, marginBottom:36 }}>
           {[
             { label:'Total',      value:events.length, color:'#1a1a1a' },
             { label:'Publicadas', value:published,     color:'#0f766e' },
@@ -178,7 +178,7 @@ export function DashboardClient({ userName, events: init }: { userName:string; e
                   style={{ background:'#fff', border:'1px solid #e8e2db', borderRadius:16, overflow:'visible', position:'relative', transition:'box-shadow .15s' }}
                   onMouseEnter={e=>(e.currentTarget as HTMLDivElement).style.boxShadow='0 4px 20px rgba(0,0,0,0.06)'}
                   onMouseLeave={e=>(e.currentTarget as HTMLDivElement).style.boxShadow='none'}>
-                  <div style={{ display:'flex', alignItems:'center', gap:14, padding:'15px 18px' }}>
+                  <div className="db-event-card" style={{ display:'flex', alignItems:'center', gap:14, padding:'15px 18px', flexWrap:'wrap' }}>
 
                     {/* Emoji icon */}
                     <div style={{ width:42, height:42, borderRadius:12, background:isPaid?'#e0f5f2':'#f5f5f5', display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, flexShrink:0 }}>
@@ -203,7 +203,7 @@ export function DashboardClient({ userName, events: init }: { userName:string; e
                     </a>
 
                     {/* Stats */}
-                    <div style={{ display:'flex', gap:20, flexShrink:0 }}>
+                    <div className="db-event-card-stats" style={{ display:'flex', gap:20, flexShrink:0 }}>
                       <div style={{ textAlign:'center', minWidth:40 }}>
                         <p style={{ fontFamily:"'Playfair Display',serif", fontSize:22, fontWeight:400, color:'#1a1a1a', lineHeight:1, marginBottom:1 }}>{event.guests}</p>
                         <p style={{ fontSize:10, color:'#bbb', letterSpacing:0.3 }}>invitados</p>

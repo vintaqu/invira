@@ -125,14 +125,18 @@ body {
   .db-sidebar-nav::-webkit-scrollbar { display: none; }
   .db-sidebar-nav a {
     flex-direction: column !important;
-    padding: 10px 16px !important;
-    font-size: 11px !important;
-    gap: 3px !important;
+    padding: 8px 10px !important;
+    font-size: 10px !important;
+    gap: 2px !important;
     border-radius: 0 !important;
-    min-width: 72px !important;
+    min-width: 60px !important;
+    max-width: 80px !important;
     text-align: center !important;
     white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
     border-bottom: 2px solid transparent !important;
+    flex-shrink: 0 !important;
   }
   .db-sidebar-footer { display: none !important; }
   .db-main { margin-left: 0 !important; padding-top: 0 !important; }
@@ -157,6 +161,15 @@ body {
   /* Forms */
   .ee-form-2col { grid-template-columns: 1fr !important; }
   .ee-form-3col { grid-template-columns: 1fr !important; }
+
+  /* Guest new form - stack all fields vertically */
+  .ee-guest-new-form { grid-template-columns: 1fr !important; }
+  .ee-guest-new-form input { min-width: 0 !important; width: 100% !important; }
+
+  /* Dashboard event cards - better mobile layout */
+  .db-event-card { padding: 16px !important; }
+  .db-event-card-meta { flex-direction: column !important; gap: 6px !important; align-items: flex-start !important; }
+  .db-event-card-stats { gap: 12px !important; }
 }
 
 /* Nav CTA short text on mobile */
