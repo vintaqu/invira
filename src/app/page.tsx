@@ -32,7 +32,7 @@ const MOSAIC = [
     href: '/invitaciones-cumpleanos', color: 'rgba(80,30,80,0.55)',
   },
   {
-    img: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=800&q=85&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=85&auto=format&fit=crop',
     label: 'Bautizos', sub: 'Momentos llenos de ternura',
     href: '/invitaciones-bautizo', color: 'rgba(20,50,80,0.55)',
   },
@@ -42,7 +42,7 @@ const MOSAIC = [
     href: '/invitaciones-quinceAnera', color: 'rgba(80,20,60,0.55)',
   },
   {
-    img: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=85&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1627556704302-624286467c65?w=800&q=85&auto=format&fit=crop',
     label: 'Graduaciones', sub: 'El esfuerzo tiene recompensa',
     href: '/invitaciones-graduacion', color: 'rgba(30,30,60,0.55)',
   },

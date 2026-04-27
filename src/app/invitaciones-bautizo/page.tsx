@@ -51,7 +51,7 @@ export default function Page() {
         heroTitle={<>Invitaciones de bautizo <em style={{ fontStyle: 'italic', color: '#84C5BC' }}>llenas de ternura</em></>}
         heroSubtitle="Diseño delicado y personalizado, RSVP online y mapa con iglesia y restaurante. Comparte por WhatsApp en segundos."
         heroBg="linear-gradient(135deg,#0a1e30 0%,#1a3a50 60%,#0a1e30 100%)"
-        heroImg="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=1400&q=80&auto=format&fit=crop"
+        heroImg="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=1400&q=80&auto=format&fit=crop"
         features={FEATURES}
         faqs={FAQS}
         testimonials={TESTIMONIALS}

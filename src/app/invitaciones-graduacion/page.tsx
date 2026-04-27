@@ -50,7 +50,7 @@ export default function Page() {
         heroTitle={<>Tu graduación merece <em style={{ fontStyle: 'italic', color: '#84C5BC' }}>una invitación a su altura</em></>}
         heroSubtitle="Diseño elegante, RSVP online y cuenta regresiva. Celebra años de esfuerzo con la invitación que mereces."
         heroBg="linear-gradient(135deg,#0a0a18 0%,#1a1a35 60%,#0a0a18 100%)"
-        heroImg="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1400&q=80&auto=format&fit=crop"
+        heroImg="https://images.unsplash.com/photo-1627556704302-624286467c65?w=1400&q=80&auto=format&fit=crop"
         features={FEATURES}
         faqs={FAQS}
         testimonials={TESTIMONIALS}
