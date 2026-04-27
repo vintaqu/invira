@@ -8,7 +8,7 @@ const EVENT_TYPES = [
   { label: 'Boda',        img: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=200&q=70&auto=format&fit=crop' },
   { label: 'Cumpleaños',  img: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=200&q=70&auto=format&fit=crop' },
   { label: 'Comunión',    img: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=200&q=70&auto=format&fit=crop' },
-  { label: 'Bautizo',     img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=70&auto=format&fit=crop' },
+  { label: 'Bautizo',     img: 'https://images.unsplash.com/photo-1588072432836-e10032774350?w=200&q=70&auto=format&fit=crop' },
   { label: 'Graduación',  img: 'https://images.unsplash.com/photo-1627556704302-624286467c65?w=200&q=70&auto=format&fit=crop' },
   { label: 'Corporativo', img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=200&q=70&auto=format&fit=crop' },
   { label: 'Más...',      img: '' },
@@ -32,7 +32,7 @@ const MOSAIC = [
     href: '/invitaciones-cumpleanos', color: 'rgba(80,30,80,0.55)',
   },
   {
-    img: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&q=85&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=800&q=85&auto=format&fit=crop',
     label: 'Bautizos', sub: 'Momentos llenos de ternura',
     href: '/invitaciones-bautizo', color: 'rgba(20,50,80,0.55)',
   },
