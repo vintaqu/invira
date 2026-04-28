@@ -46,24 +46,50 @@ export class PaymentService {
     successUrl: string
     cancelUrl: string
     planSlug?: string
-    finalPrice?: number  // in euros, overrides DB price (used for promo codes)
-    promoId?: string
+    promoId?: string   // validated server-side, never trust client price
   }) {
     if (!stripe) {
       throw new Error('Stripe not configured. Add STRIPE_SECRET_KEY to .env.local')
     }
 
-    const { userId, eventId, productType, successUrl, cancelUrl, planSlug = 'esencial', finalPrice, promoId } = params
+    const { userId, eventId, productType, successUrl, cancelUrl, planSlug = 'esencial', promoId } = params
     const product = PRODUCTS[productType]
 
-    // Use finalPrice from promo if provided, otherwise get from DB
-    const liveAmount = finalPrice !== undefined
-      ? Math.round(finalPrice * 100)  // convert euros to cents
-      : productType === 'event_activation'
-        ? await getLivePlanPrice(planSlug)
-        : product.amount
+    // 1. Get base price from DB (never trust client)
+    let liveAmount = productType === 'event_activation'
+      ? await getLivePlanPrice(planSlug)
+      : product.amount
 
-    console.log('[Stripe] liveAmount:', liveAmount, 'finalPrice param:', finalPrice, 'promoId:', promoId)
+    // 2. Apply promo discount server-side if promoId provided
+    if (promoId && productType === 'event_activation') {
+      try {
+        const promo = await prisma.promoCode.findUnique({
+          where: { id: promoId },
+          include: { uses: { where: { userId } } }
+        })
+        const now = new Date()
+        const valid = promo &&
+          promo.isActive &&
+          promo.validFrom <= now &&
+          (!promo.validUntil || promo.validUntil >= now) &&
+          (!promo.maxUses || promo.usedCount < promo.maxUses) &&
+          promo.uses.length < promo.maxUsesPerUser &&
+          (promo.appliesTo === 'all' || promo.appliesTo === planSlug)
+
+        if (valid) {
+          const baseEuros = liveAmount / 100
+          const discountEuros = promo.discountType === 'percent'
+            ? baseEuros * promo.discountValue / 100
+            : Math.min(promo.discountValue, baseEuros)
+          liveAmount = Math.max(50, Math.round((baseEuros - discountEuros) * 100)) // min 0.50€
+          console.log('[Stripe] Promo applied:', promo.code, 'discount:', discountEuros, 'final cents:', liveAmount)
+        } else {
+          console.warn('[Stripe] Promo invalid or expired:', promoId)
+        }
+      } catch (e) {
+        console.error('[Stripe] Promo lookup error:', e)
+      }
+    }
 
     const event = await prisma.event.findFirst({ where: { id: eventId, userId } })
     if (!event) throw new Error('Event not found')

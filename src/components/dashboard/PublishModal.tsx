@@ -62,7 +62,7 @@ export function PublishModal({ currentEventId, onClose }: Props) {
           eventIds: selectedIds,
           planSlug: selectedPlan.slug,
           promoId: promoResult?.promoId,
-          finalPrice: promoResult ? promoResult.finalPrice : undefined,
+          // finalPrice intentionally not sent - calculated server-side for security
         }),
       })
       const d = await res.json()

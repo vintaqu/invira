@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
     if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     const body = await req.json()
-    const { eventId: _eventId, eventIds, productType = 'event_activation', planSlug = 'esencial', promoId, finalPrice } = body
+    const { eventId: _eventId, eventIds, productType = 'event_activation', planSlug = 'esencial', promoId } = body
+    // Note: finalPrice from client is intentionally ignored - price calculated server-side
     const eventId = _eventId ?? (Array.isArray(eventIds) ? eventIds[0] : eventIds)
     if (!eventId) return NextResponse.json({ error: 'eventId requerido' }, { status: 400 })
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
@@ -23,7 +24,6 @@ export async function POST(req: NextRequest) {
       successUrl: `${appUrl}/dashboard/events/${eventId}/success`,
       cancelUrl:  `${appUrl}/dashboard/events/${eventId}?payment=cancelled`,
       planSlug,
-      finalPrice: finalPrice !== undefined ? Number(finalPrice) : undefined,
       promoId,
     })
 

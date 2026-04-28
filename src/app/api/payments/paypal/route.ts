@@ -32,7 +32,8 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { eventId, eventIds, productType = 'event_activation', planSlug = 'esencial', promoId, finalPrice } = body
+    const { eventId, eventIds, productType = 'event_activation', planSlug = 'esencial', promoId } = body
+    // Note: finalPrice from client is intentionally ignored - price calculated server-side
     // Accept both eventId (singular) and eventIds (array) — use first one
     const resolvedEventId = eventId ?? (Array.isArray(eventIds) ? eventIds[0] : eventIds)
     const userId = session.user.id
@@ -40,9 +41,30 @@ export async function POST(req: NextRequest) {
     if (!product) return NextResponse.json({ error: 'Producto inválido' }, { status: 400 })
     if (!resolvedEventId) return NextResponse.json({ error: 'eventId requerido' }, { status: 400 })
 
-    const livePrice = finalPrice !== undefined
-      ? Number(finalPrice)
-      : await getLivePlanPrice(planSlug, product.amount)
+    // Calculate price server-side - never trust client
+    let livePrice = await getLivePlanPrice(planSlug, product.amount)
+    if (promoId) {
+      try {
+        const promo = await prisma.pricingPlan ? null : null // PayPal uses same logic as Stripe via shared service
+        // Apply promo server-side
+        const { prisma: db } = await import('@/lib/prisma')
+        const promoData = await db.promoCode.findUnique({
+          where: { id: promoId },
+          include: { uses: { where: { userId: session.user.id } } }
+        })
+        const now = new Date()
+        if (promoData?.isActive && promoData.validFrom <= now &&
+          (!promoData.validUntil || promoData.validUntil >= now) &&
+          (!promoData.maxUses || promoData.usedCount < promoData.maxUses) &&
+          promoData.uses.length < promoData.maxUsesPerUser &&
+          (promoData.appliesTo === 'all' || promoData.appliesTo === planSlug)) {
+          const discount = promoData.discountType === 'percent'
+            ? livePrice * promoData.discountValue / 100
+            : Math.min(promoData.discountValue, livePrice)
+          livePrice = Math.max(0.5, +(livePrice - discount).toFixed(2))
+        }
+      } catch (e) { console.error('[PayPal] promo error:', e) }
+    }
 
     const event = await prisma.event.findFirst({ where: { id: resolvedEventId, userId } })
     if (!event) return NextResponse.json({ error: 'Evento no encontrado' }, { status: 404 })
