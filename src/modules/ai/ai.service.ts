@@ -1,6 +1,6 @@
 // AI Service — uses Groq (free) with Gemini fallback. No paid API required.
 
-export type EventTone = 'romantic' | 'elegant' | 'fun' | 'corporate' | 'religious' | 'modern'
+export type EventTone = 'romantic' | 'elegant' | 'fun' | 'corporate' | 'religious' | 'modern' | 'funny' | 'warm' | 'proud' | 'nostalgic' | 'inspiring'
 export type EventTypeAI = 'WEDDING' | 'BIRTHDAY' | 'CORPORATE' | 'BAPTISM' | 'ANNIVERSARY' | 'OTHER'
 
 interface GenerateEventTextInput {
@@ -70,13 +70,18 @@ async function generate(prompt: string): Promise<string> {
 
 export class AIService {
   static async generateEventText(input: GenerateEventTextInput) {
-    const toneDesc: Record<EventTone, string> = {
-      romantic:  'poético, emotivo y lleno de amor',
-      elegant:   'formal, refinado y sofisticado',
-      fun:       'divertido, cercano y con humor',
-      corporate: 'profesional, claro y conciso',
-      religious: 'espiritual, respetuoso y tradicional',
-      modern:    'minimalista, fresco y contemporáneo',
+    const toneDesc: Record<string, string> = {
+      romantic:   'poético, emotivo y lleno de amor',
+      elegant:    'formal, refinado y sofisticado',
+      fun:        'festivo, alegre y celebratorio',
+      corporate:  'profesional, claro y conciso',
+      religious:  'espiritual, respetuoso y tradicional',
+      modern:     'minimalista, fresco y contemporáneo',
+      funny:      'con mucho humor, gracioso y desenfadado',
+      warm:       'cálido, cercano y familiar',
+      proud:      'orgulloso del logro, emotivo y celebratorio',
+      nostalgic:  'nostálgico, entrañable y emotivo',
+      inspiring:  'inspirador, motivador y positivo',
     }
     const typeDesc: Record<EventTypeAI, string> = {
       WEDDING: 'boda', BIRTHDAY: 'cumpleaños', CORPORATE: 'evento corporativo',
@@ -88,7 +93,7 @@ Genera texto para una invitación digital de ${typeDesc[input.type]}.
 Protagonistas: ${input.coupleNames ?? 'No especificado'}
 Fecha: ${new Date(input.eventDate).toLocaleDateString('es-ES', { weekday:'long', year:'numeric', month:'long', day:'numeric' })}
 Lugar: ${input.venueName ?? 'No especificado'}
-Tono: ${toneDesc[input.tone]}
+Tono: ${(toneDesc as any)[input.tone] ?? "cálido y cercano"}
 Idioma: ${input.locale}
 ${input.additionalContext ? `Contexto: ${input.additionalContext}` : ''}
 

@@ -1397,7 +1397,7 @@ function TabAI({ event, onApply }: { event: Event; onApply: (field: string, val:
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: '#a89880', marginBottom: 12 }}>Tono</p>
           <div className="ee-metrics" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 8, marginBottom: 20 }}>
             {availableTones.map(t => (
-              <button key={t.id} onClick={() => setTone(t.id)}
+              <button key={t.id} onClick={() => { setTone(t.id); setResult(null); setError('') }}
                 style={{ padding: '12px', borderRadius: 12, border: `1.5px solid ${tone === t.id ? '#6aada4' : '#e4ddd3'}`, background: tone === t.id ? '#f0f9f8' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all .15s', fontFamily: 'Inter, sans-serif' }}>
                 <p style={{ fontSize: 13, fontWeight: 600, color: tone === t.id ? '#6aada4' : '#1a1a1a', marginBottom: 2 }}>{t.label}</p>
                 <p style={{ fontSize: 11, color: '#a89880' }}>{t.desc}</p>
