@@ -661,3 +661,51 @@ model PricingPlan {
 
   @@map("pricing_plans")
 }
+
+// ── Promotional Codes ─────────────────────────────────────────────────────────
+model PromoCode {
+  id             String    @id @default(cuid())
+  code           String    @unique
+  description    String?
+
+  // Discount type
+  discountType   String    // 'percent' | 'fixed'
+  discountValue  Float     // % or € amount
+
+  // Applicability
+  appliesTo      String    @default("all") // 'all' | 'esencial' | 'premium'
+  minAmount      Float?    // minimum order amount to apply
+
+  // Limits
+  maxUses        Int?      // null = unlimited
+  usedCount      Int       @default(0)
+  maxUsesPerUser Int       @default(1)
+
+  // Validity
+  validFrom      DateTime  @default(now())
+  validUntil     DateTime?
+
+  // Status
+  isActive       Boolean   @default(true)
+
+  // Relations
+  uses           PromoCodeUse[]
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("promo_codes")
+}
+
+model PromoCodeUse {
+  id          String    @id @default(cuid())
+  promoCodeId String
+  userId      String
+  paymentId   String?
+  discount    Float     // actual discount applied in €
+  createdAt   DateTime  @default(now())
+
+  promoCode   PromoCode @relation(fields: [promoCodeId], references: [id])
+
+  @@map("promo_code_uses")
+}

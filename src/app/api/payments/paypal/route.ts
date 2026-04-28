@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { eventId, eventIds, productType = 'event_activation', planSlug = 'esencial' } = body
+    const { eventId, eventIds, productType = 'event_activation', planSlug = 'esencial', promoId } = body
     // Accept both eventId (singular) and eventIds (array) — use first one
     const resolvedEventId = eventId ?? (Array.isArray(eventIds) ? eventIds[0] : eventIds)
     const userId = session.user.id

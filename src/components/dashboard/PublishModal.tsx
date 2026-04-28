@@ -23,6 +23,10 @@ export function PublishModal({ currentEventId, onClose }: Props) {
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null)
   const [selectedIds, setSelectedIds]   = useState<string[]>([currentEventId])
   const [paying, setPaying]       = useState(false)
+  const [promoCode, setPromoCode] = useState('')
+  const [promoResult, setPromoResult] = useState<any>(null)
+  const [promoLoading, setPromoLoading] = useState(false)
+  const [promoError, setPromoError] = useState('')
 
   useEffect(() => {
     // Load plans
@@ -54,12 +58,34 @@ export function PublishModal({ currentEventId, onClose }: Props) {
       const endpoint = method === 'stripe' ? '/api/payments/stripe' : '/api/payments/paypal'
       const res = await fetch(endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventIds: selectedIds, planSlug: selectedPlan.slug }),
+        body: JSON.stringify({ eventIds: selectedIds, planSlug: selectedPlan.slug, promoId: promoResult?.promoId }),
       })
       const d = await res.json()
       if (d.url) window.location.href = d.url
       else if (d.approvalUrl) window.location.href = d.approvalUrl
     } catch { setPaying(false) }
+  }
+
+  async function applyPromo() {
+    if (!promoCode.trim() || !selectedPlan) return
+    setPromoLoading(true); setPromoError(''); setPromoResult(null)
+    const basePrice = discountedPrice(selectedPlan)
+    const res = await fetch('/api/promo/validate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: promoCode.trim(), planSlug: selectedPlan.slug, basePrice })
+    })
+    const data = await res.json()
+    if (res.ok && data.valid) setPromoResult(data)
+    else setPromoError(data.error ?? 'Código no válido')
+    setPromoLoading(false)
+  }
+
+  function removePromo() { setPromoResult(null); setPromoCode(''); setPromoError('') }
+
+  function getFinalPrice(plan: Plan) {
+    const base = discountedPrice(plan)
+    if (!promoResult) return base
+    return promoResult.finalPrice
   }
 
   const discountedPrice = (plan: Plan) => {
@@ -187,14 +213,40 @@ export function PublishModal({ currentEventId, onClose }: Props) {
               <p style={{ fontSize:12, color:'#aaa', margin:'0 0 8px', letterSpacing:1, textTransform:'uppercase' }}>Resumen</p>
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline' }}>
                 <p style={{ fontSize:14, color:'#1a1a1a', margin:0 }}>{selectedPlan.name} · {selectedIds.length} evento{selectedIds.length > 1 ? 's' : ''}</p>
-                <p style={{ fontSize:20, fontWeight:600, color:'#1a1a1a', margin:0 }}>€{discountedPrice(selectedPlan)}</p>
+                <div style={{ textAlign:'right' }}>
+                  {promoResult && <p style={{ fontSize:12, color:'#aaa', textDecoration:'line-through', margin:'0 0 2px' }}>€{discountedPrice(selectedPlan)}</p>}
+                  <p style={{ fontSize:20, fontWeight:600, color:'#1a1a1a', margin:0 }}>€{getFinalPrice(selectedPlan)}</p>
+                </div>
               </div>
+              {promoResult && (
+                <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:8, padding:'6px 10px', background:'#dcfce7', borderRadius:8 }}>
+                  <p style={{ fontSize:12, color:'#16a34a', margin:0 }}>🎟️ {promoResult.code} · {promoResult.label}</p>
+                  <button onClick={removePromo} style={{ fontSize:11, color:'#16a34a', background:'none', border:'none', cursor:'pointer', padding:0 }}>Quitar</button>
+                </div>
+              )}
               {selectedIds.length > 1 && (
                 <p style={{ fontSize:11, color:'#84C5BC', margin:'4px 0 0' }}>
                   Publicarás: {drafts.filter(d => selectedIds.includes(d.id)).map(d => d.title).join(', ')}
                 </p>
               )}
             </div>
+
+            {/* Promo code */}
+            {!promoResult && (
+              <div>
+                <p style={{ fontSize:11, color:'#aaa', letterSpacing:1, textTransform:'uppercase', margin:'0 0 6px' }}>Código promocional</p>
+                <div style={{ display:'flex', gap:8 }}>
+                  <input value={promoCode} onChange={e => { setPromoCode(e.target.value.toUpperCase()); setPromoError('') }}
+                    placeholder="Ej: BODA2025" onKeyDown={e => e.key === 'Enter' && applyPromo()}
+                    style={{ flex:1, padding:'9px 12px', borderRadius:8, border:`1px solid ${promoError ? '#fca5a5' : '#e0d8d0'}`, fontSize:13, fontFamily:'Inter,sans-serif', outline:'none' }} />
+                  <button onClick={applyPromo} disabled={promoLoading || !promoCode.trim()}
+                    style={{ padding:'9px 16px', borderRadius:8, border:'1px solid #e0d8d0', background:'#f8f6f4', cursor:'pointer', fontSize:13, fontFamily:'Inter,sans-serif', whiteSpace:'nowrap', opacity: !promoCode.trim() ? 0.5 : 1 }}>
+                    {promoLoading ? '…' : 'Aplicar'}
+                  </button>
+                </div>
+                {promoError && <p style={{ fontSize:12, color:'#dc2626', margin:'4px 0 0' }}>⚠️ {promoError}</p>}
+              </div>
+            )}
 
             <button onClick={() => handlePay('stripe')} disabled={paying}
               style={{ background:'#1a1a1a', color:'#fff', border:'none', borderRadius:12, padding:'15px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:'Inter,sans-serif', display:'flex', alignItems:'center', justifyContent:'center', gap:8 }}>
