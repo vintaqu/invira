@@ -82,12 +82,9 @@ export class PaymentService {
             ? baseEuros * promo.discountValue / 100
             : Math.min(promo.discountValue, baseEuros)
           liveAmount = Math.max(50, Math.round((baseEuros - discountEuros) * 100)) // min 0.50€
-          console.log('[Stripe] Promo applied:', promo.code, 'discount:', discountEuros, 'final cents:', liveAmount)
         } else {
-          console.warn('[Stripe] Promo invalid or expired:', promoId)
-        }
+          }
       } catch (e) {
-        console.error('[Stripe] Promo lookup error:', e)
       }
     }
 
