@@ -1306,8 +1306,63 @@ function TabCheckin({ eventId, eventSlug, isPaid }: { eventId: string; eventSlug
 }
 
 // ─── TAB: IA ──────────────────────────────────────────────────
+
+// Tonos disponibles por tipo de evento
+const TONES_BY_TYPE: Record<string, { id: string; label: string; desc: string }[]> = {
+  WEDDING:     [
+    { id: 'romantic', label: 'Romántico',  desc: 'Emotivo y poético' },
+    { id: 'elegant',  label: 'Elegante',   desc: 'Formal y sofisticado' },
+    { id: 'modern',   label: 'Moderno',    desc: 'Minimalista y fresco' },
+    { id: 'religious',label: 'Religioso',  desc: 'Espiritual y tradicional' },
+  ],
+  BIRTHDAY:    [
+    { id: 'fun',      label: 'Divertido',  desc: 'Alegre y festivo' },
+    { id: 'modern',   label: 'Moderno',    desc: 'Minimalista y fresco' },
+    { id: 'elegant',  label: 'Elegante',   desc: 'Para celebraciones especiales' },
+    { id: 'funny',    label: 'Gracioso',   desc: 'Con humor y desparpajo' },
+  ],
+  BAPTISM:     [
+    { id: 'religious',label: 'Religioso',  desc: 'Espiritual y tradicional' },
+    { id: 'elegant',  label: 'Elegante',   desc: 'Formal y sofisticado' },
+    { id: 'warm',     label: 'Cálido',     desc: 'Familiar y cercano' },
+  ],
+  GRADUATION:  [
+    { id: 'proud',    label: 'Orgulloso',  desc: 'Celebra el logro' },
+    { id: 'fun',      label: 'Festivo',    desc: 'Alegre y celebratorio' },
+    { id: 'elegant',  label: 'Elegante',   desc: 'Formal y sofisticado' },
+  ],
+  QUINCEANERA: [
+    { id: 'romantic', label: 'Soñador',    desc: 'Mágico y especial' },
+    { id: 'fun',      label: 'Festivo',    desc: 'Alegre y divertido' },
+    { id: 'elegant',  label: 'Elegante',   desc: 'Sofisticado y especial' },
+  ],
+  CORPORATE:   [
+    { id: 'corporate',label: 'Profesional',desc: 'Claro y directo' },
+    { id: 'modern',   label: 'Moderno',    desc: 'Fresco y contemporáneo' },
+    { id: 'elegant',  label: 'Formal',     desc: 'Sofisticado y serio' },
+  ],
+  ANNIVERSARY: [
+    { id: 'romantic', label: 'Romántico',  desc: 'Emotivo y poético' },
+    { id: 'elegant',  label: 'Elegante',   desc: 'Formal y sofisticado' },
+    { id: 'warm',     label: 'Nostálgico', desc: 'Emotivo y entrañable' },
+  ],
+  OTHER:       [
+    { id: 'fun',      label: 'Festivo',    desc: 'Alegre y celebratorio' },
+    { id: 'elegant',  label: 'Elegante',   desc: 'Formal y sofisticado' },
+    { id: 'modern',   label: 'Moderno',    desc: 'Minimalista y fresco' },
+  ],
+}
+
+const EVENT_TYPE_LABEL: Record<string, string> = {
+  WEDDING: 'boda', BIRTHDAY: 'cumpleaños', BAPTISM: 'bautizo',
+  GRADUATION: 'graduación', QUINCEANERA: 'quinceañera',
+  CORPORATE: 'evento corporativo', ANNIVERSARY: 'aniversario', OTHER: 'celebración',
+}
+
 function TabAI({ event, onApply }: { event: Event; onApply: (field: string, val: string) => void }) {
-  const [tone, setTone] = useState('romantic')
+  const eventType = event.type ?? 'OTHER'
+  const availableTones = TONES_BY_TYPE[eventType] ?? TONES_BY_TYPE.OTHER
+  const [tone, setTone] = useState(availableTones[0].id)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
@@ -1317,20 +1372,13 @@ function TabAI({ event, onApply }: { event: Event; onApply: (field: string, val:
     try {
       const res = await fetch('/api/ai/generate', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'text', type: event.type ?? 'WEDDING', tone, coupleNames: event.coupleNames, eventDate: event.eventDate, venueName: event.venueName, locale: event.locale ?? 'es' }),
+        body: JSON.stringify({ action: 'text', type: eventType, tone, coupleNames: event.coupleNames, eventDate: event.eventDate, venueName: event.venueName, locale: event.locale ?? 'es' }),
       })
       const data = await res.json()
       if (data.result) setResult(data.result)
-      else setError('No se pudo generar el texto. Verifica que GROQ_API_KEY esté configurado en .env.local')
+      else setError('No se pudo generar el texto. Verifica que GROQ_API_KEY esté configurado.')
     } catch { setError('Error de conexión') } finally { setLoading(false) }
   }
-
-  const tones = [
-    { id: 'romantic', label: 'Romántico', desc: 'Emotivo y poético' },
-    { id: 'elegant', label: 'Elegante', desc: 'Formal y sofisticado' },
-    { id: 'fun', label: 'Divertido', desc: 'Cercano y con humor' },
-    { id: 'modern', label: 'Moderno', desc: 'Minimalista y fresco' },
-  ]
 
   return (
     <div style={{ maxWidth: 700 }}>
@@ -1340,13 +1388,15 @@ function TabAI({ event, onApply }: { event: Event; onApply: (field: string, val:
             <span style={{ fontSize: 24 }}>✦</span>
             <p style={{ fontSize: 16, fontWeight: 600, color: '#1a1a1a' }}>Generador de texto con IA</p>
           </div>
-          <p style={{ fontSize: 13, color: '#a89880', lineHeight: 1.6 }}>Claude genera el texto de tu invitación adaptado al tono y estilo que elijas.</p>
+          <p style={{ fontSize: 13, color: '#a89880', lineHeight: 1.6 }}>
+            Genera el texto de tu invitación de <strong>{EVENT_TYPE_LABEL[eventType]}</strong> adaptado al tono que elijas.
+          </p>
         </div>
 
         <div style={{ padding: '24px 28px' }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: '#a89880', marginBottom: 12 }}>Tono</p>
           <div className="ee-metrics" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 8, marginBottom: 20 }}>
-            {tones.map(t => (
+            {availableTones.map(t => (
               <button key={t.id} onClick={() => setTone(t.id)}
                 style={{ padding: '12px', borderRadius: 12, border: `1.5px solid ${tone === t.id ? '#6aada4' : '#e4ddd3'}`, background: tone === t.id ? '#f0f9f8' : '#fff', cursor: 'pointer', textAlign: 'left', transition: 'all .15s', fontFamily: 'Inter, sans-serif' }}>
                 <p style={{ fontSize: 13, fontWeight: 600, color: tone === t.id ? '#6aada4' : '#1a1a1a', marginBottom: 2 }}>{t.label}</p>
@@ -1357,7 +1407,7 @@ function TabAI({ event, onApply }: { event: Event; onApply: (field: string, val:
 
           <button onClick={generate} disabled={loading}
             style={{ width: '100%', padding: '13px', borderRadius: 12, background: loading ? '#e4ddd3' : 'linear-gradient(135deg, #84C5BC, #6aada4)', color: '#fff', border: 'none', fontSize: 14, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'Inter, sans-serif', transition: 'all .2s', boxShadow: loading ? 'none' : '0 2px 8px rgba(106,173,164,0.3)' }}>
-            {loading ? 'Generando con IA…' : '✦ Generar texto con Claude'}
+            {loading ? 'Generando…' : '✦ Generar texto con IA'}
           </button>
 
           {error && <p style={{ marginTop: 12, fontSize: 13, color: '#c0392b', background: '#fdf0f0', padding: '10px 14px', borderRadius: 10 }}>{error}</p>}
