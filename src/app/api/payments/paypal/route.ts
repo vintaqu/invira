@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { eventId, eventIds, productType = 'event_activation', planSlug = 'esencial', promoId } = body
+    const { eventId, eventIds, productType = 'event_activation', planSlug = 'esencial', promoId, finalPrice } = body
     // Accept both eventId (singular) and eventIds (array) — use first one
     const resolvedEventId = eventId ?? (Array.isArray(eventIds) ? eventIds[0] : eventIds)
     const userId = session.user.id
@@ -40,7 +40,9 @@ export async function POST(req: NextRequest) {
     if (!product) return NextResponse.json({ error: 'Producto inválido' }, { status: 400 })
     if (!resolvedEventId) return NextResponse.json({ error: 'eventId requerido' }, { status: 400 })
 
-    const livePrice = await getLivePlanPrice(planSlug, product.amount)
+    const livePrice = finalPrice !== undefined
+      ? Number(finalPrice)
+      : await getLivePlanPrice(planSlug, product.amount)
 
     const event = await prisma.event.findFirst({ where: { id: resolvedEventId, userId } })
     if (!event) return NextResponse.json({ error: 'Evento no encontrado' }, { status: 404 })

@@ -58,7 +58,12 @@ export function PublishModal({ currentEventId, onClose }: Props) {
       const endpoint = method === 'stripe' ? '/api/payments/stripe' : '/api/payments/paypal'
       const res = await fetch(endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventIds: selectedIds, planSlug: selectedPlan.slug, promoId: promoResult?.promoId }),
+        body: JSON.stringify({
+          eventIds: selectedIds,
+          planSlug: selectedPlan.slug,
+          promoId: promoResult?.promoId,
+          finalPrice: promoResult ? promoResult.finalPrice : undefined,
+        }),
       })
       const d = await res.json()
       if (d.url) window.location.href = d.url
