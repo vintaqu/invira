@@ -22,6 +22,9 @@ export async function POST(req: NextRequest) {
       productType: productType as ProductType,
       successUrl: `${appUrl}/dashboard/events/${eventId}/success`,
       cancelUrl:  `${appUrl}/dashboard/events/${eventId}?payment=cancelled`,
+      planSlug,
+      finalPrice: finalPrice !== undefined ? Number(finalPrice) : undefined,
+      promoId,
     })
 
     return NextResponse.json({ url })

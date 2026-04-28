@@ -45,19 +45,25 @@ export class PaymentService {
     productType: ProductType
     successUrl: string
     cancelUrl: string
+    planSlug?: string
+    finalPrice?: number  // in euros, overrides DB price (used for promo codes)
+    promoId?: string
   }) {
     if (!stripe) {
       throw new Error('Stripe not configured. Add STRIPE_SECRET_KEY to .env.local')
     }
 
-    const { userId, eventId, productType, successUrl, cancelUrl } = params
+    const { userId, eventId, productType, successUrl, cancelUrl, planSlug = 'esencial', finalPrice, promoId } = params
     const product = PRODUCTS[productType]
 
-    // Use live price from DB for event_activation, respecting discounts
-    const planSlug = (params as any).planSlug ?? 'esencial'
-    const liveAmount = productType === 'event_activation'
-      ? await getLivePlanPrice(planSlug)
-      : product.amount
+    // Use finalPrice from promo if provided, otherwise get from DB
+    const liveAmount = finalPrice !== undefined
+      ? Math.round(finalPrice * 100)  // convert euros to cents
+      : productType === 'event_activation'
+        ? await getLivePlanPrice(planSlug)
+        : product.amount
+
+    console.log('[Stripe] liveAmount:', liveAmount, 'finalPrice param:', finalPrice, 'promoId:', promoId)
 
     const event = await prisma.event.findFirst({ where: { id: eventId, userId } })
     if (!event) throw new Error('Event not found')
