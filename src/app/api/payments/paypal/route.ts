@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
         currency: product.currency,
         status: 'PENDING',
         productType,
-        metadata: { eventTitle: event.title, eventSlug: event.slug, provider: 'paypal' },
+        metadata: { eventTitle: event.title, eventSlug: event.slug, provider: 'paypal', promoId: promoId ?? null },
       },
     })
 
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
       currency: product.currency.toUpperCase(),
       description: `${product.name} — ${event.title}`,
       paymentId: payment.id,
-      successUrl: `${appUrl}/api/payments/paypal/capture?paymentId=${payment.id}&eventId=${eventId}`,
+      successUrl: `${appUrl}/api/payments/paypal/capture?paymentId=${payment.id}&eventId=${resolvedEventId}`,
       cancelUrl:  `${appUrl}/dashboard/events/${resolvedEventId}?payment=cancelled`,
     })
 

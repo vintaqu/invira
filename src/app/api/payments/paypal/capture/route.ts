@@ -43,6 +43,33 @@ export async function GET(req: NextRequest) {
       // Publish the event
       await EventService.publish(eventId)
 
+      // Register promo code use if applicable
+      try {
+        const promoUse = await prisma.promoCodeUse.findFirst({
+          where: { paymentId: payment.id }
+        })
+        if (!promoUse) {
+          // Check if payment has promoId in metadata
+          const meta = payment.metadata as any
+          if (meta?.promoId) {
+            await prisma.$transaction([
+              prisma.promoCodeUse.create({
+                data: {
+                  promoCodeId: meta.promoId,
+                  userId: payment.userId,
+                  paymentId: payment.id,
+                  discount: meta.discountAmount ?? 0,
+                }
+              }),
+              prisma.promoCode.update({
+                where: { id: meta.promoId },
+                data: { usedCount: { increment: 1 } }
+              })
+            ])
+          }
+        }
+      } catch (e) { /* non-blocking */ }
+
       // Send activation email
       const event = await prisma.event.findUnique({
         where: { id: eventId },
