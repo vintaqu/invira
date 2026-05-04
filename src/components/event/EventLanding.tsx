@@ -244,7 +244,7 @@ export function EventLanding({ event, guestToken, channel }: {
         @keyframes mb4{from{height:5px}to{height:14px}}
       `}</style>
 
-      {musicToPlay && <MusicPlayer musicUrl={musicToPlay} musicLabel={musicLabel} accentColor={accent} eventName={event.coupleNames ?? event.title} />}
+      {musicToPlay && <MusicPlayer musicUrl={musicToPlay} musicLabel={musicLabel} accentColor={accent} eventName={event.coupleNames ?? event.title} eventType={event.type} />}
 
       {/* ── HERO ── */}
       <section style={{ background:bgPage, position:'relative', overflow:'hidden' }}>
@@ -698,7 +698,7 @@ function TimelineSection({ items, accent, fontDisplay, bgColor }: { items: Timel
 }
 
 // ─── MUSIC PLAYER ─────────────────────────────────────────────
-function MusicPlayer({ musicUrl, musicLabel, accentColor, eventName }: { musicUrl:string; musicLabel:string; accentColor:string; eventName?:string }) {
+function MusicPlayer({ musicUrl, musicLabel, accentColor, eventName, eventType }: { musicUrl:string; musicLabel:string; accentColor:string; eventName?:string; eventType?:string }) {
   const isYT    = musicUrl.startsWith('youtube:')
   const ytId    = isYT ? musicUrl.replace('youtube:','') : null
   const audioRef  = useRef<HTMLAudioElement|null>(null)
@@ -757,46 +757,91 @@ function MusicPlayer({ musicUrl, musicLabel, accentColor, eventName }: { musicUr
 
       {/* Welcome overlay — triggers autoplay on first interaction */}
       {showWelcome && (
-        <div
-          onClick={handleWelcome}
-          style={{
-            position:'fixed', inset:0, zIndex:999,
-            background:'rgba(0,0,0,0.72)',
-            backdropFilter:'blur(8px)',
-            display:'flex', alignItems:'center', justifyContent:'center',
-            cursor:'pointer', flexDirection:'column', gap:0,
-          }}>
-          <div style={{
-            background:'rgba(255,255,255,0.07)',
-            border:'1px solid rgba(255,255,255,0.15)',
-            borderRadius:24, padding:'36px 44px',
-            textAlign:'center', maxWidth:340,
-            boxShadow:'0 24px 80px rgba(0,0,0,0.4)',
-          }}>
-            {/* Music note animated */}
-            <div style={{ fontSize:48, marginBottom:16, animation:'pulse 2s ease-in-out infinite' }}>🎵</div>
-            <p style={{ fontFamily:'Playfair Display,serif', fontSize:22, color:'#fff', fontWeight:400, marginBottom:8, lineHeight:1.3 }}>
-              {eventName ? `Bienvenido a ${eventName}` : 'Bienvenido'}
-            </p>
-            <p style={{ fontSize:13, color:'rgba(255,255,255,0.5)', marginBottom:28, lineHeight:1.6 }}>
-              Toca para abrir la invitación<br/>con música
-            </p>
-            <div style={{
-              background: accentColor,
-              color:'#fff', borderRadius:50,
-              padding:'13px 32px', fontSize:14, fontWeight:600,
-              display:'inline-block', letterSpacing:0.3,
-              boxShadow:`0 4px 20px ${accentColor}60`,
-            }}>
-              ♪ Abrir invitación
-            </div>
-          </div>
+        <div onClick={handleWelcome} style={{
+          position:'fixed', inset:0, zIndex:999,
+          background:'rgba(0,0,0,0.55)',
+          backdropFilter:'blur(20px) saturate(1.2)',
+          display:'flex', alignItems:'center', justifyContent:'center',
+          cursor:'pointer',
+        }}>
           <style>{`
-            @keyframes pulse {
-              0%,100% { transform: scale(1); }
-              50% { transform: scale(1.15); }
-            }
+            @keyframes wv-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+            @keyframes wv-ring1 { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2.2);opacity:0} }
+            @keyframes wv-ring2 { 0%{transform:scale(1);opacity:.4} 100%{transform:scale(2.8);opacity:0} }
+            @keyframes wv-in    { from{opacity:0;transform:translateY(20px) scale(.96)} to{opacity:1;transform:translateY(0) scale(1)} }
+            @keyframes wv-bar   { 0%,100%{transform:scaleY(.4)} 50%{transform:scaleY(1)} }
+            .wv-card { animation: wv-in .6s cubic-bezier(.16,1,.3,1) forwards }
           `}</style>
+
+          <div className="wv-card" style={{
+            position:'relative',
+            background:'linear-gradient(145deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%)',
+            border:'1px solid rgba(255,255,255,0.18)',
+            borderRadius:28, padding:'44px 40px 36px',
+            textAlign:'center', width:'min(340px, 88vw)',
+            boxShadow:'0 32px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15)',
+          }}>
+
+            {/* Pulsing rings */}
+            <div style={{ position:'relative', width:72, height:72, margin:'0 auto 24px' }}>
+              <div style={{ position:'absolute', inset:-12, borderRadius:'50%', border:`1.5px solid ${accentColor}`, animation:'wv-ring1 2s ease-out infinite' }} />
+              <div style={{ position:'absolute', inset:-12, borderRadius:'50%', border:`1.5px solid ${accentColor}`, animation:'wv-ring2 2s ease-out .5s infinite' }} />
+              {/* Icon circle */}
+              <div style={{ width:72, height:72, borderRadius:'50%', background:`linear-gradient(135deg, ${accentColor}cc, ${accentColor}66)`, display:'flex', alignItems:'center', justifyContent:'center', animation:'wv-float 3s ease-in-out infinite', boxShadow:`0 8px 32px ${accentColor}60` }}>
+                {/* Sound wave bars */}
+                <div style={{ display:'flex', alignItems:'center', gap:3, height:28 }}>
+                  {[12,20,28,20,12].map((h,i) => (
+                    <div key={i} style={{ width:3.5, height:h, borderRadius:2, background:'#fff', animation:`wv-bar ${.6+i*.12}s ease-in-out ${i*.08}s infinite` }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Name */}
+            <p style={{ fontFamily:'Playfair Display,serif', fontSize:26, fontWeight:400, color:'#fff', lineHeight:1.2, marginBottom:10, letterSpacing:'-0.02em' }}>
+              {eventName ?? 'Tu invitación'}
+            </p>
+
+            {/* Subtitle — adapted per event type */}
+            {(() => {
+              const subs: Record<string,string> = {
+                WEDDING:     'Tu invitación de boda te espera',
+                BIRTHDAY:    '¡Es hora de celebrar!',
+                BAPTISM:     'Un momento especial te espera',
+                GRADUATION:  'El esfuerzo tiene su recompensa',
+                QUINCEANERA: 'Una noche mágica comienza',
+                CORPORATE:   'Tu invitación está lista',
+                ANNIVERSARY: 'Celebremos juntos este momento',
+              }
+              const sub = (eventType && subs[eventType]) ?? 'Toca para abrir con música'
+              return (
+                <p style={{ fontSize:13, color:'rgba(255,255,255,0.45)', marginBottom:32, lineHeight:1.65, letterSpacing:0.2 }}>
+                  {sub}
+                </p>
+              )
+            })()}
+
+            {/* CTA button */}
+            <div style={{ position:'relative', display:'inline-block' }}>
+              <div style={{ position:'absolute', inset:0, borderRadius:50, background:accentColor, filter:'blur(12px)', opacity:.5 }} />
+              <div style={{
+                position:'relative',
+                background:`linear-gradient(135deg, ${accentColor}, ${accentColor}cc)`,
+                color:'#fff', borderRadius:50,
+                padding:'14px 36px', fontSize:14, fontWeight:600,
+                letterSpacing:0.4, display:'flex', alignItems:'center', gap:8,
+                boxShadow:`0 4px 20px ${accentColor}40`,
+              }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6Z"/></svg>
+                Abrir invitación
+              </div>
+            </div>
+
+            {/* Bottom hint */}
+            <p style={{ fontSize:11, color:'rgba(255,255,255,0.2)', marginTop:20, letterSpacing:0.5 }}>
+              Puedes silenciar en cualquier momento
+            </p>
+          </div>
         </div>
       )}
 
