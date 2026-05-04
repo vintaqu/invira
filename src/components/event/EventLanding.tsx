@@ -244,7 +244,7 @@ export function EventLanding({ event, guestToken, channel }: {
         @keyframes mb4{from{height:5px}to{height:14px}}
       `}</style>
 
-      {musicToPlay && <MusicPlayer musicUrl={musicToPlay} musicLabel={musicLabel} accentColor={accent} />}
+      {musicToPlay && <MusicPlayer musicUrl={musicToPlay} musicLabel={musicLabel} accentColor={accent} eventName={event.coupleNames ?? event.title} />}
 
       {/* ── HERO ── */}
       <section style={{ background:bgPage, position:'relative', overflow:'hidden' }}>
@@ -698,15 +698,43 @@ function TimelineSection({ items, accent, fontDisplay, bgColor }: { items: Timel
 }
 
 // ─── MUSIC PLAYER ─────────────────────────────────────────────
-function MusicPlayer({ musicUrl, musicLabel, accentColor }: { musicUrl:string; musicLabel:string; accentColor:string }) {
+function MusicPlayer({ musicUrl, musicLabel, accentColor, eventName }: { musicUrl:string; musicLabel:string; accentColor:string; eventName?:string }) {
   const isYT    = musicUrl.startsWith('youtube:')
   const ytId    = isYT ? musicUrl.replace('youtube:','') : null
-  const audioRef = useRef<HTMLAudioElement|null>(null)
+  const audioRef  = useRef<HTMLAudioElement|null>(null)
+  const iframeRef = useRef<HTMLIFrameElement|null>(null)
   const [playing, setPlaying] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(true)
+
+  // Send command to YouTube iframe via postMessage
+  function ytCommand(cmd: 'playVideo' | 'pauseVideo') {
+    iframeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ event: 'command', func: cmd, args: [] }),
+      '*'
+    )
+  }
+
+  async function handleWelcome() {
+    setShowWelcome(false)
+    if (!isYT && audioRef.current) {
+      audioRef.current.volume = 0.45
+      try { await audioRef.current.play() } catch {}
+    } else if (isYT) {
+      // Small delay to ensure iframe is ready
+      setTimeout(() => { ytCommand('playVideo'); setPlaying(true) }, 300)
+    }
+  }
+
   async function toggleAudio() {
+    if (isYT) {
+      if (playing) { ytCommand('pauseVideo'); setPlaying(false) }
+      else { ytCommand('playVideo'); setPlaying(true) }
+      return
+    }
     const a = audioRef.current; if (!a) return
     if (playing) { a.pause() } else { a.volume=.45; try { await a.play() } catch {} }
   }
+
   const bars = (
     <span style={{ display:'flex', alignItems:'flex-end', gap:2, height:18 }}>
       {[16,10,18,8,14].map((h,i) => (
@@ -714,14 +742,64 @@ function MusicPlayer({ musicUrl, musicLabel, accentColor }: { musicUrl:string; m
       ))}
     </span>
   )
+
   return (
     <>
       {!isYT && <audio ref={audioRef} src={musicUrl} loop onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)} />}
       {isYT && ytId && (
-        <iframe src={`https://www.youtube.com/embed/${ytId}?autoplay=${playing?1:0}&loop=1&playlist=${ytId}&controls=0`}
+        <iframe
+          ref={iframeRef}
+          src={`https://www.youtube.com/embed/${ytId}?enablejsapi=1&loop=1&playlist=${ytId}&controls=0&autoplay=0`}
           allow="autoplay; encrypted-media"
-          style={{ position:'fixed', bottom:-9999, left:-9999, width:1, height:1, border:'none', opacity:0, pointerEvents:'none' }} />
+          style={{ position:'fixed', bottom:-9999, left:-9999, width:1, height:1, border:'none', opacity:0, pointerEvents:'none' }}
+        />
       )}
+
+      {/* Welcome overlay — triggers autoplay on first interaction */}
+      {showWelcome && (
+        <div
+          onClick={handleWelcome}
+          style={{
+            position:'fixed', inset:0, zIndex:999,
+            background:'rgba(0,0,0,0.72)',
+            backdropFilter:'blur(8px)',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            cursor:'pointer', flexDirection:'column', gap:0,
+          }}>
+          <div style={{
+            background:'rgba(255,255,255,0.07)',
+            border:'1px solid rgba(255,255,255,0.15)',
+            borderRadius:24, padding:'36px 44px',
+            textAlign:'center', maxWidth:340,
+            boxShadow:'0 24px 80px rgba(0,0,0,0.4)',
+          }}>
+            {/* Music note animated */}
+            <div style={{ fontSize:48, marginBottom:16, animation:'pulse 2s ease-in-out infinite' }}>🎵</div>
+            <p style={{ fontFamily:'Playfair Display,serif', fontSize:22, color:'#fff', fontWeight:400, marginBottom:8, lineHeight:1.3 }}>
+              {eventName ? `Bienvenido a ${eventName}` : 'Bienvenido'}
+            </p>
+            <p style={{ fontSize:13, color:'rgba(255,255,255,0.5)', marginBottom:28, lineHeight:1.6 }}>
+              Toca para abrir la invitación<br/>con música
+            </p>
+            <div style={{
+              background: accentColor,
+              color:'#fff', borderRadius:50,
+              padding:'13px 32px', fontSize:14, fontWeight:600,
+              display:'inline-block', letterSpacing:0.3,
+              boxShadow:`0 4px 20px ${accentColor}60`,
+            }}>
+              ♪ Abrir invitación
+            </div>
+          </div>
+          <style>{`
+            @keyframes pulse {
+              0%,100% { transform: scale(1); }
+              50% { transform: scale(1.15); }
+            }
+          `}</style>
+        </div>
+      )}
+
       {musicLabel && (
         <div style={{ position:'fixed', bottom:90, right:20, zIndex:100, background:'rgba(20,16,12,.88)', color:'#fff', fontSize:11, padding:'5px 13px', borderRadius:20, backdropFilter:'blur(10px)', pointerEvents:'none', maxWidth:220, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', opacity:playing?1:0, transition:'opacity .4s' }}>
           ♪ {musicLabel}
