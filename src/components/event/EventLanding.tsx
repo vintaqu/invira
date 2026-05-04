@@ -82,8 +82,8 @@ function useCountdown(target: string) {
 
 function Divider({ color = '#84C5BC', style }: { color?: string; style?: React.CSSProperties }) {
   return (
-    <div style={{ textAlign:'center', margin:'0 auto', ...style }}>
-      <svg width="120" height="24" viewBox="0 0 120 24" fill="none">
+    <div style={{ display:'flex', alignItems:'center', justifyContent:'center', width:'100%', margin:'0 auto', ...style }}>
+      <svg width="120" height="24" viewBox="0 0 120 24" fill="none" style={{ display:'block', margin:'0 auto' }}>
         <line x1="0" y1="12" x2="48" y2="12" stroke={color} strokeWidth="0.75" strokeOpacity="0.4"/>
         <path d="M54 12 C56 8 60 6 60 12 C60 6 64 8 66 12" stroke={color} strokeWidth="1" fill="none" strokeOpacity="0.7"/>
         <circle cx="60" cy="12" r="1.5" fill={color} fillOpacity="0.5"/>
@@ -850,7 +850,7 @@ function MusicPlayer({ musicUrl, musicLabel, accentColor, eventName, eventType }
           ♪ {musicLabel}
         </div>
       )}
-      <button onClick={isYT ? ()=>setPlaying(p=>!p) : toggleAudio}
+      <button onClick={toggleAudio}
         title={playing?'Pausar':'Reproducir música'}
         style={{ position:'fixed', bottom:24, right:24, zIndex:100, width:52, height:52, borderRadius:'50%', border:'none', cursor:'pointer',
           background:playing?accentColor:'rgba(18,14,10,.82)',
