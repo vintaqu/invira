@@ -46,46 +46,25 @@ export class PaymentService {
     successUrl: string
     cancelUrl: string
     planSlug?: string
-    promoId?: string   // validated server-side, never trust client price
+    promoId?: string
+    finalAmountCents?: number  // server-calculated final price in cents
   }) {
     if (!stripe) {
       throw new Error('Stripe not configured. Add STRIPE_SECRET_KEY to .env.local')
     }
 
-    const { userId, eventId, productType, successUrl, cancelUrl, planSlug = 'esencial', promoId } = params
+    const { userId, eventId, productType, successUrl, cancelUrl } = params
     const product = PRODUCTS[productType]
 
-    // 1. Get base price from DB (never trust client)
-    let liveAmount = productType === 'event_activation'
-      ? await getLivePlanPrice(planSlug)
-      : product.amount
-
-    // 2. Apply promo discount server-side if promoId provided
-    if (promoId && productType === 'event_activation') {
-      try {
-        const promo = await prisma.promoCode.findUnique({
-          where: { id: promoId },
-          include: { uses: { where: { userId } } }
-        })
-        const now = new Date()
-        const valid = promo &&
-          promo.isActive &&
-          promo.validFrom <= now &&
-          (!promo.validUntil || promo.validUntil >= now) &&
-          (!promo.maxUses || promo.usedCount < promo.maxUses) &&
-          promo.uses.length < promo.maxUsesPerUser &&
-          (promo.appliesTo === 'all' || promo.appliesTo === planSlug)
-
-        if (valid) {
-          const baseEuros = liveAmount / 100
-          const discountEuros = promo.discountType === 'percent'
-            ? baseEuros * promo.discountValue / 100
-            : Math.min(promo.discountValue, baseEuros)
-          liveAmount = Math.max(50, Math.round((baseEuros - discountEuros) * 100)) // min 0.50€
-        } else {
-          }
-      } catch (e) {
-      }
+    // Use finalAmountCents if provided (already includes promo), else calculate from DB
+    const planSlug = params.planSlug ?? 'esencial'
+    let liveAmount: number
+    if (params.finalAmountCents !== undefined) {
+      liveAmount = params.finalAmountCents
+    } else {
+      liveAmount = productType === 'event_activation'
+        ? await getLivePlanPrice(planSlug)
+        : product.amount
     }
 
     const event = await prisma.event.findFirst({ where: { id: eventId, userId } })
