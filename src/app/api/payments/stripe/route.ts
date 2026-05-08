@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
     // Get live base price
     const plan = await prisma.pricingPlan.findUnique({ where: { slug: planSlug } })
-    let baseAmount = product.amount // cents
+    let baseAmount: number = product.amount // cents
     if (plan && plan.price > 0) {
       const d = plan.discount as { pct: number; until: string | null } | null
       const expired = d?.until ? new Date(d.until) < new Date() : false
