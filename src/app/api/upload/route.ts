@@ -1,4 +1,14 @@
 export const runtime = 'nodejs'
+export const maxDuration = 60  // seconds
+// Increase body size limit for this route
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '20mb',
+    },
+    responseLimit: '20mb',
+  },
+}
 
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
